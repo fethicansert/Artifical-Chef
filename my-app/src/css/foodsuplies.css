@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@300..700&display=swap');
 
-:root{
+:root {
     --text-color: rgba(0, 0, 0, 0.8)
 }
 
 
-.food-supluies-list{
+.food-supluies-list {
     list-style: none;
     text-align: center;
     font-family: "Outfit", sans-serif;
@@ -13,14 +13,33 @@
     color: var(--text-color);
 }
 
-.food-supluies-list-item{
+.food-supluies-list-item {
     padding: .5rem 0;
     margin-bottom: .4rem;
     border-radius: 3px;
-    box-shadow: 1px 1px 2px rgba(230, 77, 22, 0.466);
+    box-shadow: 1px 1px 2px rgba(106, 31, 4, 0.466);
+
+    border: 1px solid rgba(230, 77, 22, 0.466);
 }
 
-.food-supluies-list-wrapper{
+.food-supluies-list-wrapper {
     max-height: 40vh;
     overflow: scroll;
+    margin-bottom: .3rem;
+}
+
+.selected-food-supluies-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 3px;
+}
+
+.selected-food-supluies-list-item {
+    padding: .5rem 0;
+    margin-bottom: .4rem;
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px rgba(106, 31, 4, 0.466);
+    min-width: 60px;
+    border: 1px solid rgba(230, 77, 22, 0.466);
 }

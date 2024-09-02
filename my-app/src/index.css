@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
-.App{
+.App {
   padding: 1rem;
+  text-align: center;
 }
