@@ -1,0 +1,66 @@
+.recipes-container {
+    padding: .7rem .6rem;
+}
+
+.recipes-title {
+    color: #E85662;
+    /* color: #FF571B; */
+    /* color: #55bf93; */
+    text-decoration: underline;
+}
+
+.recipe-card {
+    padding: .5rem .5rem;
+    border-radius: 4px;
+    color: #9e350c;
+    margin-top: .7rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.recipe-name {
+    color: #d54d1b;
+    font-weight: 550;
+}
+
+.ingredients-container,
+.instructions-container {
+    margin-top: .65rem;
+}
+
+.ingredients-list,
+.instructions-list {
+    list-style: none;
+    font-size: 1.1rem;
+}
+
+.recipe-info-container {
+    margin-top: .45rem;
+    display: flex;
+    gap: 0 7px;
+}
+
+.recipe-info-text {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0 3px;
+}
+
+.save-recipe-btn {
+    border: none;
+    border-radius: 4px;
+    background: #55bf93;
+    color: white;
+    width: 100%;
+    padding: .65rem 0;
+    margin-top: .5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.ingredients-header,
+.instructions-header {
+    color: #55BF93;
+    font-size: 1.1rem;
+}

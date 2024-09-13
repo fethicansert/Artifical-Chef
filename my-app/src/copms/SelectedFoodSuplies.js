@@ -1,0 +1,35 @@
+import React from 'react'
+import { GiHotMeal } from "react-icons/gi";
+
+const SelectedFoodSuplies = ({ selectedFoodSuplies, removeFoodSuplie }) => {
+    return (
+        <div className='selected-food-suplies'>
+            <h3 className='selected-suplies-header'>Malzemeleriniz</h3>
+            {
+                selectedFoodSuplies.length
+                    ? <div className='selected-food-supluies-list-wrapper'>
+                        <ul className='selected-food-supluies-list'>
+                            {
+                                selectedFoodSuplies.map((item, index) =>
+                                    <li
+                                        onClick={() => removeFoodSuplie(item)}
+                                        className='selected-food-supluies-list-item'
+                                        key={index}>
+                                        {item.name}
+                                    </li>)
+                            }
+                        </ul>
+                    </div>
+                    : <div className='selected-suplies-text-cotainer'>
+                        <p
+                            className='selected-suplies-text'>
+                            Yapay Zekanın Size En Lezzetli Tarifleri Sunabilmesi İçin Malzemelerinizi Seçin!
+                        </p>
+                        <GiHotMeal size={60} />
+                    </div>
+            }
+        </div>
+    )
+}
+
+export default SelectedFoodSuplies

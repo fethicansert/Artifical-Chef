@@ -5,6 +5,124 @@
 }
 
 .App {
-  padding: 1rem;
+  font-family: "Outfit", sans-serif;
+}
+
+main {
+  padding: 0 2vw;
+  position: relative;
+}
+
+header {
+  box-shadow: 1px 1px 2px rgba(233, 90, 38, 0.45);
+  padding: .7rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+header h1 {
+  font-size: 1.2rem;
+  /* color: rgb(228, 86, 34); */
+  color: #E85662;
+  align-self: end;
+  margin: 0 .2rem;
+  padding: .1rem 0;
+  /* rgb(227, 87, 37); */
+}
+
+.header-route-left-arrow,
+.header-route-right-arrow {
+  position: absolute;
+  background: #55BF93;
+  color: white;
+  border-radius: 50%;
+  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.20));
+}
+
+.header-route-left-arrow:active {
+  color: #55BF93;
+  background: white;
+}
+
+
+.header-route-left-arrow {
+  left: 0;
+  margin-left: .65rem;
+}
+
+.header-route-right-arrow {
+  right: 0;
+  margin-right: .65rem;
+}
+
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
   text-align: center;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+
+  transform: translate(-50%, -50%);
+}
+
+.loading-spinner-text {
+  font-size: 1.7rem;
+  color: #E85662;
+  max-width: 250px;
+}
+
+.popup {
+  padding: 1rem .35rem;
+  border-radius: 4px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  width: 70%;
+  max-width: 250px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
+  background: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.popup-message {
+  color: #3f312b;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.popup-button {
+  background: #3f312b;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
+  margin-top: 1rem;
+  border: none;
+  color: white;
+  padding: .5rem 0;
+  border-radius: 4px;
+  width: 60%;
+}
+
+.popup-icon {
+  color: #3f312b;
+  padding: 0 .5rem;
+  background: white;
+  border-radius: 4px;
+  position: absolute;
+  left: -10%;
+  /* transform: translateX(-50%); */
+  top: -40%;
 }
