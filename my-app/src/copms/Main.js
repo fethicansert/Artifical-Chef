@@ -9,8 +9,10 @@ import fartSound from '../sounds/zapsplat_cartoon_slime_fart_rasp_wet_bubbles_01
 import LoadingSpinner from '../copms/Loading';
 import Popup from '../copms/Popup';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const Main = ({ setIsPrepered }) => {
+
 
     //STATES AND HOOKS
     const [foodSuplies, setFoodSuplies] = useState(foodSupliesData);
@@ -23,7 +25,10 @@ const Main = ({ setIsPrepered }) => {
     const [searchText, setSearcText] = useState('');
 
     const audioRef = useRef(null);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const { auth } = useAuth();
+    console.log(auth);
 
     useEffect(() => {
         const newSearchedFoodSuplies = foodSuplies.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase()));
@@ -138,6 +143,8 @@ const Main = ({ setIsPrepered }) => {
                 userContent: selectedFoodSuplies.map(item => item.name).join(', ')
             });
 
+            console.log(bodyContent);
+
             const response = await fetch("http://192.168.3.91:3166/groqAI/", {
                 method: "POST",
                 body: bodyContent,
@@ -146,7 +153,7 @@ const Main = ({ setIsPrepered }) => {
 
             if (response.status === 200) {
                 const data = await response.json();
-                const recipesData = JSON.parse(data.recipes);
+                const recipesData = JSON.parse(data.message);
                 sessionStorage.setItem('recipes', JSON.stringify(recipesData.recipes));
                 setIsPrepered(true);
                 sessionStorage.setItem('isPrepered', true)
@@ -154,7 +161,6 @@ const Main = ({ setIsPrepered }) => {
             } else if (response.status === 400) {
                 setErrorMessage("Something went wrong !");
             }
-
         } catch (e) {
             setErrorMessage("Something went wrong !");
         } finally {

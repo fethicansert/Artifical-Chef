@@ -3,6 +3,8 @@ import Header from './copms/Header';
 import Main from './copms/Main';
 import Recipes from './copms/Recipes';
 import { Routes, Route } from "react-router-dom";
+import AuthProvider from './context/AuthProvider';
+import Register from './copms/register-page/Register';
 
 function App() {
 
@@ -12,15 +14,21 @@ function App() {
 
     <div className="App">
 
-      <Header isPrepered={isPrepered} />
+      <AuthProvider>
 
-      <Routes>
+        <Header isPrepered={isPrepered} />
 
-        <Route path='/' index element={<Main setIsPrepered={setIsPrepered} />}></Route>
+        <Routes>
 
-        <Route path='recipes' element={<Recipes />}></Route>
+          <Route path='/register' index element={<Register />}></Route>
 
-      </Routes>
+          <Route path='/' index element={<Main setIsPrepered={setIsPrepered} />}></Route>
+
+          <Route path='recipes' element={<Recipes />}></Route>
+
+        </Routes>
+
+      </AuthProvider>
 
     </div>
   );
