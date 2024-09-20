@@ -3,7 +3,7 @@
 }
 
 .recipes-title {
-    color: #E85662;
+    color: #D4212F;
     /* color: #FF571B; */
     /* color: #55bf93; */
     text-decoration: underline;
@@ -18,7 +18,7 @@
 }
 
 .recipe-name {
-    color: #d54d1b;
+    color: #9e350c;
     font-weight: 550;
 }
 
@@ -49,7 +49,7 @@
 .save-recipe-btn {
     border: none;
     border-radius: 4px;
-    background: #55bf93;
+    background: #339c6e;
     color: white;
     width: 100%;
     padding: .65rem 0;
@@ -61,6 +61,6 @@
 
 .ingredients-header,
 .instructions-header {
-    color: #55BF93;
+    color: #339c6e;
     font-size: 1.1rem;
 }

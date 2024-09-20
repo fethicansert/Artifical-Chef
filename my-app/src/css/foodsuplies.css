@@ -25,8 +25,6 @@ h3 {
 }
 
 .selected-food-suplies {
-
-    /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.453); */
     border-bottom: 2px solid #55bf9356;
     height: 32vh;
     min-height: 225px;
@@ -43,7 +41,7 @@ h3 {
 .search-food-suplies {
     width: 100%;
     padding: .9rem 0;
-    margin: .5rem 0;
+    margin-bottom: .5rem;
     text-indent: 7px;
     border: none;
     border-radius: 3px;
@@ -121,7 +119,6 @@ h3 {
 .food-supluies-list-item,
 .food-supluies-type-list-item {
     width: 100%;
-    background: #FF571B;
     color: white;
     padding: .6rem 0;
     margin-bottom: .45rem;
@@ -131,12 +128,16 @@ h3 {
     /* border: 1px solid rgba(230, 77, 22, 0.466); */
 }
 
+.food-supluies-list-item {
+    background: #e16121;
+}
+
 .food-supluies-list-item:active {
     opacity: .8;
 }
 
 .food-supluies-type-list-item {
-    background: #E85662;
+    background: #e22232;
 }
 
 .food-supluies-type-list-item:active {
@@ -161,7 +162,7 @@ h3 {
     /* background: #52b00f; */
     /* background: #E6E027; */
     /* background: #56E878; */
-    background: #55BF93;
+    background: #339c6e;
     color: white;
     padding: .7rem .2rem;
     border-radius: 3px;
@@ -171,7 +172,7 @@ h3 {
 }
 
 .prepare-recipies-btn {
-    background: #E85662;
+    background: #D4212F;
     color: white;
     border-radius: 4px;
     width: 80%;
@@ -198,13 +199,13 @@ h3 {
 
 .food-supluies-text {
     font-size: .95rem;
-    color: #e85662d2;
-    margin: .1rem 0;
+    color: #D4212F;
+    margin: .5rem 0;
     text-align: center;
 }
 
 .selected-suplies-text-cotainer {
-    color: #55bf93e8;
+    color: #339c6e;
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -214,7 +215,7 @@ h3 {
 }
 
 .selected-suplies-header {
-    color: #55BF93;
+    color: #339c6e;
     margin-bottom: .4rem;
     font-weight: 450;
     font-size: 1.4rem;

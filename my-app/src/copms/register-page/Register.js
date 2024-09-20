@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import RegisterInput from './RegisterInput';
-import '../../css/register.css';
-
+import '../../css/register_login.css';
+import { useNavigate } from 'react-router-dom';
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Register = () => {
@@ -27,6 +27,8 @@ const Register = () => {
     const [passwordPlaceholder, setPasswordPlaceholder] = useState(false);
     const [confirmPasswordPlaceholder, setConfirmPasswordPlaceholder] = useState(false);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         username.length < 5 ? setIsValidUsername(false) : setIsValidUsername(true);
         !emailRegex.test(email) ? setIsValidEmail(false) : setIsValidEmail(true);
@@ -40,6 +42,7 @@ const Register = () => {
             <h2 className='register-title'>Register</h2>
 
             <RegisterInput
+                id={'username'}
                 label={'Username'}
                 type={'text'}
                 value={username}
@@ -52,6 +55,7 @@ const Register = () => {
             />
 
             <RegisterInput
+                id={'email'}
                 label={"Email"}
                 type={'email'}
                 value={email}
@@ -64,6 +68,7 @@ const Register = () => {
             />
 
             <RegisterInput
+                id={'password'}
                 label={"Password"}
                 type={'password'}
                 value={password}
@@ -76,6 +81,7 @@ const Register = () => {
             />
 
             <RegisterInput
+                id={'confirmpassword'}
                 label={"Confirm Password"}
                 type={'password'}
                 value={confirmPassword}
@@ -87,7 +93,9 @@ const Register = () => {
                 showPlaceholder={confirmPasswordPlaceholder}
             />
 
-            <button className='register-submit-button'>Submit</button>
+            <button id='submit' aria-label='submit' className='register-submit-button'>
+                Submit
+            </button>
 
         </form>
     )
@@ -115,8 +123,11 @@ const Register = () => {
                 headers: headerList
             });
 
-            const data = await response.json();
-            console.log(data);
+            if (response.ok) {
+                navigate('/login');
+            }
+
+
 
         } catch (e) {
             console.log(e);

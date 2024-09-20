@@ -4,7 +4,7 @@ import { GiHotMeal } from "react-icons/gi";
 const SelectedFoodSuplies = ({ selectedFoodSuplies, removeFoodSuplie }) => {
     return (
         <div className='selected-food-suplies'>
-            <h3 className='selected-suplies-header'>Malzemeleriniz</h3>
+            <h2 className='selected-suplies-header'>Malzemeleriniz</h2>
             {
                 selectedFoodSuplies.length
                     ? <div className='selected-food-supluies-list-wrapper'>

@@ -12,11 +12,11 @@ const LoadingSpinner = () => {
                 ariaLabel="hourglass-loading"
                 wrapperStyle={{}}
                 wrapperClass=""
-                color='#E85662'
-                colors={['#E85662', '#FF571B']}
+                color='#D4212F'
+
             />
             <p className='loading-spinner-text'>
-                Yemek Tarifleriniz Hazırlanıyor
+                Yemek Tarifleriniz Hazırlanıyor...
             </p>
         </div>
     )
