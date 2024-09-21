@@ -21,7 +21,7 @@ const Recipes = () => {
 
             {
                 recipes.length > 0
-                    ? recipes.map(recipe => <RecipeCard key={uuidv4()} recipe={recipe} />)
+                    ? recipes.map(recipe => <RecipeCard key={uuidv4()} recipe={recipe} setRecipes={setRecipes} />)
                     : <p>Lutfen tafif olusturunuz</p>
             }
 

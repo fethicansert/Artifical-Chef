@@ -51,11 +51,11 @@ header h1 {
   margin-right: .65rem;
 }
 
-.header-user-icon {
+.header-menu-icon {
   position: absolute;
-  background: #339c6e;
-  color: white;
-  border-radius: 50%;
+  /* background: #339c6e; */
+  color: #339c6e;
+  /* border-radius: 50%; */
   filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.20));
   left: 0;
   margin-left: .65rem;

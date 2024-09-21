@@ -3,22 +3,25 @@
 }
 
 .recipes-title {
+    font-size: 2rem;
     color: #D4212F;
+    /* color: #2f2527;; */
     /* color: #FF571B; */
     /* color: #55bf93; */
-    text-decoration: underline;
 }
 
 .recipe-card {
+    position: relative;
     padding: .5rem .5rem;
     border-radius: 4px;
-    color: #9e350c;
+    color: #2f2527;
     margin-top: .7rem;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
 }
 
 .recipe-name {
-    color: #9e350c;
+    /* color: #9e350c; */
+    color: #2f2527;
     font-weight: 550;
 }
 
@@ -63,4 +66,12 @@
 .instructions-header {
     color: #339c6e;
     font-size: 1.1rem;
+}
+
+.recipes-remove-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: .6rem;
+    margin-top: .6rem;
 }

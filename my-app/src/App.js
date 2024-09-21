@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import AuthProvider from './context/AuthProvider';
 import Register from './copms/register-page/Register';
 import Login from './copms/login-page/Login';
+
 function App() {
 
   const [isPrepered, setIsPrepered] = useState(JSON.parse(sessionStorage.getItem('isPrepered')) || false);

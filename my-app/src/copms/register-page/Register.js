@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import RegisterInput from './RegisterInput';
 import '../../css/register_login.css';
 import { useNavigate } from 'react-router-dom';
+import googleIcon from '../../images/icons8-google-48.png'
+import facebookIcon from '../../images/icons8-facebook-50.png'
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Register = () => {
@@ -27,6 +30,9 @@ const Register = () => {
     const [passwordPlaceholder, setPasswordPlaceholder] = useState(false);
     const [confirmPasswordPlaceholder, setConfirmPasswordPlaceholder] = useState(false);
 
+    const [requestError, setRequestError] = useState('');
+    const [isRequestError, setIsRequestError] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,6 +47,7 @@ const Register = () => {
 
             <h2 className='register-title'>Register</h2>
 
+            {isRequestError && <p className='register-request-error-text'>{requestError}</p>}
             <RegisterInput
                 id={'username'}
                 label={'Username'}
@@ -97,6 +104,17 @@ const Register = () => {
                 Submit
             </button>
 
+            <p onClick={() => { navigate('/login') }} className='register-information-text'>Already have an account?<b> Login</b></p>
+
+            <button className='login-submit-button platform-button'>
+                <img className='facebook-icon' src={googleIcon} width={34} />
+                <span>Continue with Google</span>
+            </button>
+
+            <button className='login-submit-button platform-button'>
+                <img className='facebook-icon' src={facebookIcon} width={34} />
+                <span>Continue with Facebook</span>
+            </button>
         </form>
     )
 
@@ -123,9 +141,16 @@ const Register = () => {
                 headers: headerList
             });
 
+            const data = await response.json();
+            console.log(data);
+
             if (response.ok) {
                 navigate('/login');
+            } else if (response.status === 409) {
+                setIsRequestError(true)
+                setRequestError(data.error);
             }
+
 
 
 

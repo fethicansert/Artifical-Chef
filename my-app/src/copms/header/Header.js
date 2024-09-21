@@ -4,6 +4,8 @@ import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from "react-icons/f
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 // import { FaRegUserCircle } from "react-icons/fa";
 import { CgMenuRound } from "react-icons/cg";
+import { RxHamburgerMenu } from "react-icons/rx";
+
 import HeaderNavbar from './HeaderNavbar';
 
 const Header = ({ isPrepered }) => {
@@ -16,13 +18,22 @@ const Header = ({ isPrepered }) => {
         <header>
 
             <RiRobot2Line size={30} color='#D4212F' />
+
             <h1 className={'header-title'} >Yapay Bi Şef</h1>
 
-            <CgMenuRound onClick={() => setIsActiveNav(!isActiveNav)} size={27} className='header-user-icon' />
+            <RxHamburgerMenu
+                onClick={() => setIsActiveNav(!isActiveNav)}
+                size={27}
+                className='header-menu-icon'
+            />
 
-            <HeaderNavbar isActiveNav={isActiveNav} setIsActiveNav={setIsActiveNav} />
+            <HeaderNavbar
+                isActiveNav={isActiveNav}
+                setIsActiveNav={setIsActiveNav}
+                isPrepered={isPrepered}
+            />
 
-            {
+            {/* {
                 location.pathname !== '/' &&
                 <FaRegArrowAltCircleLeft
                     onClick={() => navigate('/')}
@@ -40,7 +51,7 @@ const Header = ({ isPrepered }) => {
                     size={27}
                     className='header-route-arrow-icon'
                 />
-            }
+            } */}
         </header>
     )
 }

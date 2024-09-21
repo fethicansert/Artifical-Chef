@@ -25,7 +25,7 @@ h3 {
 }
 
 .selected-food-suplies {
-    border-bottom: 2px solid #55bf9356;
+    border-bottom: 2px solid #339c6e56;
     height: 32vh;
     min-height: 225px;
     margin-top: .37rem;
@@ -41,7 +41,6 @@ h3 {
 .search-food-suplies {
     width: 100%;
     padding: .9rem 0;
-    margin-bottom: .5rem;
     text-indent: 7px;
     border: none;
     border-radius: 3px;
@@ -52,6 +51,7 @@ h3 {
 
 .search-food-suplies-container {
     position: relative;
+    margin-bottom: .5rem;
 }
 
 .search-icon {
@@ -137,7 +137,7 @@ h3 {
 }
 
 .food-supluies-type-list-item {
-    background: #e22232;
+    background: #D4212F;
 }
 
 .food-supluies-type-list-item:active {

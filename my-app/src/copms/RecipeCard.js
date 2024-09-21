@@ -3,8 +3,10 @@ import IngredientsList from './IngredientsList';
 import InstructionsList from './InstructionsList';
 import { IoTimerOutline } from "react-icons/io5";
 import { IoPeopleCircleOutline } from "react-icons/io5";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { ImBin } from "react-icons/im";
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ recipe, setRecipes }) => {
 
     return (
         <article className='recipe-card'>
@@ -24,8 +26,24 @@ const RecipeCard = ({ recipe }) => {
             <InstructionsList instructions={recipe?.instructions} />
 
             <button className='save-recipe-btn'>Tariflerime Kaydet</button>
+
+            <ImBin
+                className='recipes-remove-icon'
+                color='#D4212F'
+                size={20}
+                onClick={() => removeRecipe(recipe.id)}
+            />
+
+
         </article>
-    )
+    );
+
+    function removeRecipe(id) {
+        setRecipes(prev => {
+            const removedRecipes = prev.filter(recipe => recipe.id !== id);
+            return removedRecipes;
+        });
+    }
 }
 
 export default RecipeCard
