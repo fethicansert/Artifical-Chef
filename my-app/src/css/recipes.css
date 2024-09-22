@@ -23,6 +23,7 @@
     /* color: #9e350c; */
     color: #2f2527;
     font-weight: 550;
+    max-width: 260px;
 }
 
 .ingredients-container,

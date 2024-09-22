@@ -6,6 +6,7 @@ import useAuth from '../../hooks/useAuth';
 
 import googleIcon from '../../images/icons8-google-48.png'
 import facebookIcon from '../../images/icons8-facebook-50.png'
+import { ThreeDots } from 'react-loader-spinner';
 
 const Login = () => {
 
@@ -17,6 +18,8 @@ const Login = () => {
 
     const [requestError, setRequestError] = useState('');
     const [isRequestError, setIsRequestError] = useState(false);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
     const { setAuth } = useAuth();
@@ -45,7 +48,13 @@ const Login = () => {
                 showPlaceholder={showPasswordPlaceholder}
             />
 
-            <button className='login-submit-button'>Submit</button>
+            <button className='login-submit-button'>
+                {
+                    !isLoading
+                        ? 'Submit'
+                        : <ThreeDots color='white' height={21.8} width={30} wrapperClass='login-submit-loading' />
+                }
+            </button>
 
             <p onClick={() => { navigate('/register') }} className='login-information-text'>Don't have an account?<b> Register</b></p>
 
@@ -75,6 +84,7 @@ const Login = () => {
 
         if (!validate()) return;
 
+        setIsLoading(true);
         try {
 
             const headerList = {
@@ -108,6 +118,8 @@ const Login = () => {
 
         } catch (e) {
             console.log(e);
+        } finally {
+            setIsLoading(false);
         }
     }
 

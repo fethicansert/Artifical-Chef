@@ -64,6 +64,15 @@
     font-weight: 450;
     text-transform: uppercase;
     width: 100%;
+
+    text-align: center;
+}
+
+.login-submit-loading {
+    width: min-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .register-submit-button:hover {

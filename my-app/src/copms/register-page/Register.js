@@ -4,6 +4,7 @@ import '../../css/register_login.css';
 import { useNavigate } from 'react-router-dom';
 import googleIcon from '../../images/icons8-google-48.png'
 import facebookIcon from '../../images/icons8-facebook-50.png'
+import { ThreeDots } from 'react-loader-spinner';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -32,6 +33,8 @@ const Register = () => {
 
     const [requestError, setRequestError] = useState('');
     const [isRequestError, setIsRequestError] = useState(false);
+
+    const [isLoading, setIsloading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -101,7 +104,11 @@ const Register = () => {
             />
 
             <button id='submit' aria-label='submit' className='register-submit-button'>
-                Submit
+                {
+                    !isLoading
+                        ? 'Submit'
+                        : <ThreeDots color='white' height={21.8} width={30} wrapperClass='login-submit-loading' />
+                }
             </button>
 
             <p onClick={() => { navigate('/login') }} className='register-information-text'>Already have an account?<b> Login</b></p>
@@ -122,6 +129,8 @@ const Register = () => {
         e.preventDefault();
 
         if (!validate()) return;
+
+        setIsloading(true)
 
         try {
 
@@ -145,17 +154,16 @@ const Register = () => {
             console.log(data);
 
             if (response.ok) {
-                navigate('/login');
+                // navigate('/login');
             } else if (response.status === 409) {
                 setIsRequestError(true)
                 setRequestError(data.error);
             }
 
-
-
-
         } catch (e) {
             console.log(e);
+        } finally {
+            setIsloading(false)
         }
 
     }
