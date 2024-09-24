@@ -15,20 +15,40 @@ const Main = ({ setIsPrepered }) => {
 
 
     //STATES AND HOOKS
-    const [foodSuplies, setFoodSuplies] = useState(foodSupliesData);
+    const [foodSuplies, setFoodSuplies] = useState([]);
     const [selectedFoodSuplies, setSelectedFoodSuplies] = useState(JSON.parse(sessionStorage.getItem('selectedFoodSuplies')) || []);
     const [filteredFoodSuplies, setFilteredFoodSuplies] = useState(foodSuplies);
     const [isLoading, setIsLoading] = useState(false);
-
+    const [foodSuplieTypes, setFoodSuplieTypes] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
     const [searchText, setSearcText] = useState('');
 
     const audioRef = useRef(null);
     const navigate = useNavigate();
-
     const { auth } = useAuth();
-    console.log(auth);
+    console.log(foodSuplies);
+
+    useEffect(() => {
+
+        const getIngredients = async () => {
+            console.log("HEllo");
+            try {
+                const response = await fetch('http://192.168.3.91:3166/mysql_ingredients');
+                const data = await response.json();
+
+                const response_ = await fetch('http://192.168.3.91:3166/mysql_ingredient_types')
+                const data_ = await response_.json();
+
+                setFoodSuplieTypes(data_);
+                setFoodSuplies(data);
+                setFilteredFoodSuplies(data);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        getIngredients();
+    }, []);
 
     useEffect(() => {
         const newSearchedFoodSuplies = foodSuplies.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase()));
@@ -52,6 +72,7 @@ const Main = ({ setIsPrepered }) => {
 
                         <FoodSuplies
                             foodSuplies={filteredFoodSuplies}
+                            foodSuplieTypes={foodSuplieTypes}
                             chosseFoodSuplie={chosseFoodSuplie}
                             filterTypeFoodSuplies={filterTypeFoodSuplies}
                             searchText={searchText}
@@ -79,7 +100,7 @@ const Main = ({ setIsPrepered }) => {
                         }
 
                     </main>
-                    : <LoadingSpinner />
+                    : <LoadingSpinner text={'Yemek Tarifleriniz Hazırlanıyor...'} />
             }</>
     );
 
@@ -153,10 +174,12 @@ const Main = ({ setIsPrepered }) => {
 
             if (response.status === 200) {
                 const data = await response.json();
-                const recipesData = JSON.parse(data.message);
+                const recipesData = data.message;
+
                 sessionStorage.setItem('recipes', JSON.stringify(recipesData.recipes));
-                setIsPrepered(true);
                 sessionStorage.setItem('isPrepered', true)
+                setIsPrepered(true);
+
                 navigate('recipes', { state: { recipesData } });
             } else if (response.status === 400) {
                 setErrorMessage("Something went wrong !");

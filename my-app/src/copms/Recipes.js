@@ -11,8 +11,8 @@ const Recipes = () => {
     const [recipes, setRecipes] = useState(JSON.parse(sessionStorage.getItem('recipes')) || state?.recipesData?.recipes);
 
     useEffect(() => {
-        sessionStorage.setItem('recipes', JSON.stringify(recipes))
-    }, [state])
+        sessionStorage.setItem('recipes', JSON.stringify(recipes));
+    }, [recipes]);
 
     return (
         <main className='recipes-container'>
@@ -20,7 +20,7 @@ const Recipes = () => {
             <h2 className='recipes-title'>Tarifleriniz</h2>
 
             {
-                recipes.length > 0
+                recipes?.length > 0
                     ? recipes.map(recipe => <RecipeCard key={uuidv4()} recipe={recipe} setRecipes={setRecipes} />)
                     : <p>Lutfen tafif olusturunuz</p>
             }

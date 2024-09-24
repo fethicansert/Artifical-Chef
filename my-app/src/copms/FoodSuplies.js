@@ -1,8 +1,8 @@
 import React from 'react'
-import foodSuplieTypes from '../data/foodSuplieTypes';
+
 import SearchFoodSuplies from './SearchFoodSuplies';
 
-const FoodSuplies = ({ foodSuplies, chosseFoodSuplie, filterTypeFoodSuplies, searchText, setSearchText }) => {
+const FoodSuplies = ({ foodSuplies, chosseFoodSuplie, filterTypeFoodSuplies, searchText, setSearchText, foodSuplieTypes }) => {
 
     return (
         <div className='food-supluies'>

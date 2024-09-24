@@ -8,6 +8,8 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 import HeaderNavbar from './HeaderNavbar';
 
+import logo from '../../images/Unknown.jpeg'
+
 const Header = ({ isPrepered }) => {
 
     const location = useLocation();
@@ -18,6 +20,7 @@ const Header = ({ isPrepered }) => {
         <header>
 
             <RiRobot2Line size={30} color='#D4212F' />
+            {/* <img src={logo} width={40}></img> */}
 
             <h1 className={'header-title'} >Yapay Bi Şef</h1>
 

@@ -59,12 +59,12 @@ const Login = () => {
             <p onClick={() => { navigate('/register') }} className='login-information-text'>Don't have an account?<b> Register</b></p>
 
             <button className='login-submit-button platform-button'>
-                <img className='google-icon' src={googleIcon} width={34} />
+                <img className='google-icon' src={googleIcon} width={30} />
                 <span>Continue with Google</span>
             </button>
 
             <button className='login-submit-button platform-button'>
-                <img className='facebook-icon' src={facebookIcon} width={34} />
+                <img className='facebook-icon' src={facebookIcon} width={30} />
                 <span>Continue with Facebook</span>
             </button>
 

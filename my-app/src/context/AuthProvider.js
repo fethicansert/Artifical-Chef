@@ -6,7 +6,7 @@ export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useLocalStorage('auth', {});
-
+    console.log(auth);
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>
             {children}

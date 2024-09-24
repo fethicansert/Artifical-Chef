@@ -118,6 +118,7 @@ h3 {
 
 .food-supluies-list-item,
 .food-supluies-type-list-item {
+    text-transform: capitalize;
     width: 100%;
     color: white;
     padding: .6rem 0;
@@ -138,6 +139,7 @@ h3 {
 
 .food-supluies-type-list-item {
     background: #D4212F;
+
 }
 
 .food-supluies-type-list-item:active {
@@ -145,6 +147,7 @@ h3 {
 }
 
 .selected-food-supluies-list {
+    text-transform: capitalize;
     list-style: none;
     display: flex;
     justify-content: center;

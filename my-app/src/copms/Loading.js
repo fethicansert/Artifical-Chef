@@ -2,7 +2,7 @@ import React from 'react'
 import { Hourglass } from 'react-loader-spinner';
 import { ThreeDots } from 'react-loader-spinner';
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ text }) => {
     return (
         <div className='loading-spinner'>
             <ThreeDots
@@ -16,7 +16,7 @@ const LoadingSpinner = () => {
 
             />
             <p className='loading-spinner-text'>
-                Yemek Tarifleriniz Hazırlanıyor...
+                {text}
             </p>
         </div>
     )

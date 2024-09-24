@@ -3,13 +3,18 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useLogut from '../../hooks/useLogut';
+import { ThreeDots } from 'react-loader-spinner';
 const HeaderNavbar = ({ isActiveNav, setIsActiveNav, isPrepered }) => {
+
 
     const navigate = useNavigate();
     const { auth } = useAuth();
     const logout = useLogut();
 
+    const [isLoading, setIsLoading] = useState(false);
+
     return (
+
         <nav className={`header-nav-bar ${isActiveNav ? 'active' : ''}`} >
             <ul className='header-nav-bar-list'>
 
@@ -50,12 +55,16 @@ const HeaderNavbar = ({ isActiveNav, setIsActiveNav, isPrepered }) => {
                 {
                     auth?.token &&
                     <li
-                        onClick={() => {
-                            logout();
-                            setIsActiveNav(false);
+                        onClick={async () => {
+                            setIsLoading(true);
+                            await logout();
+                            setIsLoading(false);
+
+                            navigateAndClose('/');
                         }}
                         className={`header-nav-bar-list-item ${isActiveNav ? 'active' : ''}`}>
-                        Logout
+                        {!isLoading ? 'Logout'
+                            : <ThreeDots color='#D4212F' height={21.8} width={30} wrapperClass='login-submit-loading' />}
                     </li>
                 }
 

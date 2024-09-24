@@ -3,7 +3,8 @@
 }
 
 .recipes-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
     color: #D4212F;
     /* color: #2f2527;; */
     /* color: #FF571B; */
@@ -14,7 +15,7 @@
     position: relative;
     padding: .5rem .5rem;
     border-radius: 4px;
-    color: #2f2527;
+    color: #2f2527dc;
     margin-top: .7rem;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
 }
@@ -24,6 +25,7 @@
     color: #2f2527;
     font-weight: 550;
     max-width: 260px;
+    font-size: 1.1rem;
 }
 
 .ingredients-container,
@@ -34,7 +36,7 @@
 .ingredients-list,
 .instructions-list {
     list-style: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .recipe-info-container {
@@ -44,7 +46,7 @@
 }
 
 .recipe-info-text {
-    font-size: 1.1rem;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     gap: 0 3px;
@@ -56,17 +58,17 @@
     background: #339c6e;
     color: white;
     width: 100%;
-    padding: .65rem 0;
+    padding: .6rem 0;
     margin-top: .5rem;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
-    font-weight: 500;
+    font-weight: 450;
     font-size: 1.2rem;
 }
 
 .ingredients-header,
 .instructions-header {
     color: #339c6e;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
 }
 
 .recipes-remove-icon {
@@ -75,4 +77,19 @@
     right: 0;
     margin-right: .6rem;
     margin-top: .6rem;
+}
+
+.recipe-login-error-text {
+    /* text-align: center; */
+    color: #D4212F;
+    margin-top: .4rem;
+    font-size: .85rem;
+}
+
+.recipe-login-error-text b {
+    margin-left: .1rem;
+    font-weight: .9;
+    color: inherit;
+    text-decoration: underline;
+    color: #2f2527dc;
 }
