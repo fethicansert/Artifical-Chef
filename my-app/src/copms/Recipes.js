@@ -17,12 +17,12 @@ const Recipes = () => {
     return (
         <main className='recipes-container'>
 
-            <h2 className='recipes-title'>Tarifleriniz</h2>
+            <h2 className='recipes-title'>Your Recipes</h2>
 
             {
                 recipes?.length > 0
                     ? recipes.map(recipe => <RecipeCard key={uuidv4()} recipe={recipe} setRecipes={setRecipes} />)
-                    : <p>Lutfen tafif olusturunuz</p>
+                    : <p>Your recipe list is empty please create a recipe.</p>
             }
 
         </main>

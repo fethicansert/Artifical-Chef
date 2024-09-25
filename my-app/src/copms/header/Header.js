@@ -22,7 +22,7 @@ const Header = ({ isPrepered }) => {
             <RiRobot2Line size={30} color='#D4212F' />
             {/* <img src={logo} width={40}></img> */}
 
-            <h1 className={'header-title'} >Yapay Bi Şef</h1>
+            <h1 className={'header-title'} >Artificial Chef</h1>
 
             <RxHamburgerMenu
                 onClick={() => setIsActiveNav(!isActiveNav)}

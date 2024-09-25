@@ -7,7 +7,7 @@ const FoodSuplies = ({ foodSuplies, chosseFoodSuplie, filterTypeFoodSuplies, sea
     return (
         <div className='food-supluies'>
 
-            <p className='food-supluies-text'>Yapay Zekanın Ellerine Sağlık Diyeceksiniz.</p>
+            <p className='food-supluies-text'>You'll Be Thanking AI's Hands.</p>
 
             <SearchFoodSuplies
                 searchText={searchText}

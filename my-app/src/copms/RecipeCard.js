@@ -6,12 +6,13 @@ import { IoPeopleCircleOutline } from "react-icons/io5";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { ImBin } from "react-icons/im";
 import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const RecipeCard = ({ recipe, setRecipes }) => {
 
     //STATES AND HOOKS
     const [showError, setShowError] = useState(false);
-
+    const navigate = useNavigate();
     const { auth } = useAuth();
     //UI
     return (
@@ -34,7 +35,7 @@ const RecipeCard = ({ recipe, setRecipes }) => {
             <button
                 onClick={saveRecipe}
                 className='save-recipe-btn'>
-                Tariflerime Kaydet
+                Save
             </button>
 
             <ImBin
@@ -47,7 +48,7 @@ const RecipeCard = ({ recipe, setRecipes }) => {
             {
                 showError &&
                 <p className='recipe-login-error-text'>
-                    Lütfen önce giriş yapınız.<b>Login</b>
+                    Please log in first.<b onClick={() => navigate('/login')}>Login</b>
                 </p>
             }
         </article>

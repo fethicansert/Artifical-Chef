@@ -68,6 +68,7 @@ h3 {
     color: rgba(0, 0, 0, 0.497);
     /* color: #e85662a8; */
     font-size: .9rem;
+    text-transform: none;
 }
 
 

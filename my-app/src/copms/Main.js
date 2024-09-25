@@ -87,7 +87,7 @@ const Main = ({ setIsPrepered }) => {
                         <button
                             onClick={prepareRecipies}
                             className='prepare-recipies-btn'>
-                            Tarifleri Hazırla
+                            Prepare Recipes
                             <audio ref={audioRef} src={fartSound}></audio>
                         </button>
 
@@ -100,7 +100,7 @@ const Main = ({ setIsPrepered }) => {
                         }
 
                     </main>
-                    : <LoadingSpinner text={'Yemek Tarifleriniz Hazırlanıyor...'} />
+                    : <LoadingSpinner text={'Artificial Chef preparing your recipes..'} />
             }</>
     );
 

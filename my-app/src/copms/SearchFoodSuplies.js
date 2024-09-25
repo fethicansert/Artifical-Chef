@@ -9,7 +9,7 @@ const SearchFoodSuplies = ({ searchText, setSearchText }) => {
                 onChange={(e) => setSearchText(e.target.value)}
                 className='search-food-suplies'
                 type='text'
-                placeholder='Yemek Malzemesi Ara'
+                placeholder='Search for ingredients'
             />
             <RiSearchEyeLine
                 className='search-icon'
