@@ -111,6 +111,12 @@ h3 {
     font-weight: 500;
 }
 
+.food-supluies-list,
+.food-supluies-type-list {
+    height: 100%;
+    position: relative;
+}
+
 .food-supluies-list {
     width: 100%;
     color: var(--text-color);
@@ -222,4 +228,12 @@ h3 {
     margin-bottom: .6rem;
     max-width: 280px;
     /* line-height: 30px; */
+}
+
+.food-suplies-loading-spinner {
+    width: min-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -153,8 +153,8 @@ const Register = () => {
             const data = await response.json();
             console.log(data);
 
-            if (response.ok) {
-                // navigate('/login');
+            if (response.status === 201) {
+                navigate('/login');
             } else if (response.status === 409) {
                 setIsRequestError(true)
                 setRequestError(data.error);

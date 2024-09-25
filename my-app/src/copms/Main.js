@@ -13,17 +13,25 @@ import useAuth from '../hooks/useAuth';
 
 const Main = ({ setIsPrepered }) => {
 
-
     //STATES AND HOOKS
+
+    //app states
     const [foodSuplies, setFoodSuplies] = useState([]);
     const [selectedFoodSuplies, setSelectedFoodSuplies] = useState(JSON.parse(sessionStorage.getItem('selectedFoodSuplies')) || []);
     const [filteredFoodSuplies, setFilteredFoodSuplies] = useState(foodSuplies);
-    const [isLoading, setIsLoading] = useState(false);
     const [foodSuplieTypes, setFoodSuplieTypes] = useState([]);
+
+    //fetch loading states
+    const [isPrepareRecipesLoading, setPrepareRecipesIsLoading] = useState(false);
+    const [isIngredientsLoading, setIsIngredientsLoading] = useState(false);
+
+    //error states
     const [errorMessage, setErrorMessage] = useState('');
 
+    //searct states
     const [searchText, setSearcText] = useState('');
 
+    //hooks
     const audioRef = useRef(null);
     const navigate = useNavigate();
     const { auth } = useAuth();
@@ -33,6 +41,8 @@ const Main = ({ setIsPrepered }) => {
         const getIngredients = async () => {
 
             try {
+                setIsIngredientsLoading(true);
+
                 const response = await fetch('http://192.168.3.91:3166/mysql_ingredients');
                 const data = await response.json();
 
@@ -44,6 +54,10 @@ const Main = ({ setIsPrepered }) => {
                 setFilteredFoodSuplies(data);
             } catch (e) {
                 console.log(e);
+            } finally {
+                setTimeout(() => {
+                    setIsIngredientsLoading(false);
+                }, 400);
             }
         }
         getIngredients();
@@ -66,13 +80,14 @@ const Main = ({ setIsPrepered }) => {
     return (
         <>
             {
-                !isLoading
+                !isPrepareRecipesLoading
                     ? <main className='food-suplies-container'>
 
                         <FoodSuplies
+                            isIngredientsLoadings={isIngredientsLoading}
                             foodSuplies={filteredFoodSuplies}
                             foodSuplieTypes={foodSuplieTypes}
-                            chosseFoodSuplie={chosseFoodSuplie}
+                            chooseFoodSuplie={chooseFoodSuplie}
                             filterTypeFoodSuplies={filterTypeFoodSuplies}
                             searchText={searchText}
                             setSearchText={setSearcText}
@@ -109,7 +124,7 @@ const Main = ({ setIsPrepered }) => {
         return true
     };
 
-    function chosseFoodSuplie(suplie) {
+    function chooseFoodSuplie(suplie) {
         setSelectedFoodSuplies(prev => [...prev, suplie]);
         setFilteredFoodSuplies(prev => prev.filter(item => item.name !== suplie.name))
     };
@@ -153,7 +168,7 @@ const Main = ({ setIsPrepered }) => {
         if (!validate()) return setErrorMessage("Tarif oluşturmaya başlamadan önce malzeme seçmelisiniz !");
 
         try {
-            setIsLoading(true);
+            setPrepareRecipesIsLoading(true);
 
             const headerList = {
                 "Content-Type": "application/json"
@@ -186,7 +201,7 @@ const Main = ({ setIsPrepered }) => {
         } catch (e) {
             setErrorMessage("Something went wrong !");
         } finally {
-            setIsLoading(false);
+            setPrepareRecipesIsLoading(false);
         }
     }
 

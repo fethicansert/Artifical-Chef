@@ -63,7 +63,8 @@ const RecipeCard = ({ recipe, setRecipes }) => {
     };
 
     async function saveRecipe() {
-        if (!auth.token) return setShowError(true);
+        if (!auth.username) return setShowError(true);
+        console.log(auth.username);
     }
 }
 
