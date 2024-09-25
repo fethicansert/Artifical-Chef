@@ -48,7 +48,7 @@ const RecipeCard = ({ recipe, setRecipes }) => {
             {
                 showError &&
                 <p className='recipe-login-error-text'>
-                    Please log in first.<b onClick={() => navigate('/login')}>Login</b>
+                    Please login first.<b onClick={() => navigate('/login')}>Login</b>
                 </p>
             }
         </article>

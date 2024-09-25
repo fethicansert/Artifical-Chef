@@ -4,6 +4,8 @@ import '../../css/register_login.css';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
+import { jwtDecode } from 'jwt-decode';
+
 import googleIcon from '../../images/icons8-google-48.png'
 import facebookIcon from '../../images/icons8-facebook-50.png'
 import { ThreeDots } from 'react-loader-spinner';
@@ -89,7 +91,6 @@ const Login = () => {
 
             const headerList = {
                 "Content-Type": "application/json",
-
             };
 
             const bodyContent = JSON.stringify({
@@ -101,25 +102,33 @@ const Login = () => {
                 method: "POST",
                 body: bodyContent,
                 headers: headerList,
-
                 credentials: 'include',
             });
 
             const data = await response.json();
 
             if (response.ok) {
+                const token = data.token;
+                const decoded = jwtDecode(token);
 
-                setAuth({ token: data.token });
+                setAuth({ token: token, username: decoded.username });
                 navigate('/');
+
             } else if (response.status === 403) {
+
                 setIsRequestError(true)
                 setRequestError(data.error);
+
             };
 
         } catch (e) {
+
             console.log(e);
+
         } finally {
+
             setIsLoading(false);
+
         }
     }
 

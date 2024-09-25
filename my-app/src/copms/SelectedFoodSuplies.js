@@ -23,7 +23,7 @@ const SelectedFoodSuplies = ({ selectedFoodSuplies, removeFoodSuplie }) => {
                     : <div className='selected-suplies-text-cotainer'>
                         <p
                             className='selected-suplies-text'>
-                            Yapay Zekanın Size En Lezzetli Tarifleri Sunabilmesi İçin Malzemelerinizi Seçin!
+                            Select your ingredients to let AI serve you the most delicious recipes !
                         </p>
                         <GiHotMeal size={60} />
                     </div>

@@ -77,9 +77,9 @@ header h1 {
 }
 
 .loading-spinner-text {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   color: #D4212F;
-  max-width: 250px;
+  max-width: 300px;
 }
 
 .popup {
@@ -171,4 +171,11 @@ header h1 {
 .header-nav-bar-list-item.active {
   transition: opacity 350ms ease 250ms;
   opacity: 1;
+}
+
+.header-user-icon {
+  position: absolute;
+  right: 0;
+  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.20));
+  margin-right: .65rem;
 }

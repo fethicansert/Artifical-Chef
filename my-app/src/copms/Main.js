@@ -27,12 +27,11 @@ const Main = ({ setIsPrepered }) => {
     const audioRef = useRef(null);
     const navigate = useNavigate();
     const { auth } = useAuth();
-    console.log(foodSuplies);
 
     useEffect(() => {
 
         const getIngredients = async () => {
-            console.log("HEllo");
+
             try {
                 const response = await fetch('http://192.168.3.91:3166/mysql_ingredients');
                 const data = await response.json();
@@ -87,7 +86,7 @@ const Main = ({ setIsPrepered }) => {
                         <button
                             onClick={prepareRecipies}
                             className='prepare-recipies-btn'>
-                            Prepare Recipes
+                            Prepare
                             <audio ref={audioRef} src={fartSound}></audio>
                         </button>
 
