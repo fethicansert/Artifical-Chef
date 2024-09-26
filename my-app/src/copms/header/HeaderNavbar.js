@@ -21,7 +21,7 @@ const HeaderNavbar = ({ isActiveNav, setIsActiveNav, isPrepered }) => {
                 <li
                     onClick={() => navigateAndClose('/')}
                     className={`header-nav-bar-list-item ${isActiveNav ? 'active' : ''}`}>
-                    Create Recipes
+                    Prepare Recipes
                 </li>
 
                 {
