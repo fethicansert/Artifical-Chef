@@ -1,7 +1,7 @@
 import React from 'react'
 
-const RegisterInput = ({ id, label, type, value, setState, showPlaceholder, errorText, isValidInput, focus, setFocus }) => {
-    // console.log(focus);
+const RegisterInput = ({ id, label, type, value, dispatch, action, showPlaceholder, errorText, isValidInput }) => {
+
     return (
         <div className='form-input-label-group'>
             <label className='register-label' htmlFor={id}>{label}</label>
@@ -9,13 +9,12 @@ const RegisterInput = ({ id, label, type, value, setState, showPlaceholder, erro
                 id={id}
                 className='register-input'
                 value={value}
-                onChange={(e) => setState(e.target.value)}
-                onFocus={() => setFocus(true)}
+                onChange={(e) => dispatch({type: action, payload: e.target.value})}
                 type={type}
                 placeholder={showPlaceholder ? 'Fill this field please !' : ''}
             />
             {
-                (!isValidInput && focus && value) && <p className='register-input-error-text'>{errorText}</p>
+                (!isValidInput && value) && <p className='register-input-error-text'>{errorText}</p>
             }
         </div>
     )

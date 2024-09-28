@@ -10,7 +10,7 @@ const Popup = ({ message, setShowPopup, setErrorMessage }) => {
                     setErrorMessage('');
                 }}
                 className='popup-button'>
-                Kapat
+                Close
             </button>
 
             {/* <RiRobot2Line className='popup-icon' size={60} /> */}

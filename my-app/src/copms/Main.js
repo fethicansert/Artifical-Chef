@@ -165,7 +165,7 @@ const Main = ({ setIsPrepered }) => {
     async function prepareRecipies() {
         // audioRef.current.play();
 
-        if (!validate()) return setErrorMessage("Tarif oluşturmaya başlamadan önce malzeme seçmelisiniz !");
+        if (!validate()) return setErrorMessage("Before starting to create a recipe, you must select the ingredients!");
 
         try {
             setPrepareRecipesIsLoading(true);

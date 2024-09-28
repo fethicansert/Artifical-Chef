@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
-import LoginInput from './LoginInput';
-import '../../css/register_login.css';
-import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
+import { ThreeDots } from 'react-loader-spinner';
 import { jwtDecode } from 'jwt-decode';
+
+import LoginInput from './LoginInput';
+import PlatformButton from '../buttons/PlatformButton';
 
 import googleIcon from '../../images/icons8-google-48.png'
 import facebookIcon from '../../images/icons8-facebook-50.png'
-import { ThreeDots } from 'react-loader-spinner';
+
+
+import '../../css/register_login.css';
 
 const Login = () => {
 
@@ -60,15 +64,9 @@ const Login = () => {
 
             <p onClick={() => { navigate('/register') }} className='login-information-text'>Don't have an account?<b> Register</b></p>
 
-            <button className='login-submit-button platform-button'>
-                <img className='google-icon' src={googleIcon} width={30} />
-                <span>Continue with Google</span>
-            </button>
+            <PlatformButton icon={googleIcon}>Continue with Google</PlatformButton>
 
-            <button className='login-submit-button platform-button'>
-                <img className='facebook-icon' src={facebookIcon} width={30} />
-                <span>Continue with Facebook</span>
-            </button>
+            <PlatformButton icon={facebookIcon} >Continue with Facebook</PlatformButton>
 
         </form>
     )

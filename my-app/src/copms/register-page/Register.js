@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useReducer } from 'react'
 import RegisterInput from './RegisterInput';
 import '../../css/register_login.css';
 import { useNavigate } from 'react-router-dom';
@@ -6,101 +6,99 @@ import googleIcon from '../../images/icons8-google-48.png'
 import facebookIcon from '../../images/icons8-facebook-50.png'
 import { ThreeDots } from 'react-loader-spinner';
 
+import { inputReducer, validInputReducer, showPlaceholderReducer } from '../../reducers/registerReducers';
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Register = () => {
 
-    //STATES AND HOOKS
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    //STATES
+    const [inputState, inputDispatch] = useReducer(inputReducer, {
+        username: '', email: '',
+        password: '', confirmPassword: ''
+    });
 
-    const [isValidUsername, setIsValidUsername] = useState(true);
-    const [isValidEmail, setIsValidEmail] = useState(true);
-    const [isValidPassword, setIsValidPassword] = useState(true);
-    const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(true);
+    const [validInputState, validInputDispatch] = useReducer(validInputReducer, {
+        isValidUsername: false, isValidEmail: false,
+        isValidPassword: false, isValidConfirmPassword: false
+    });
 
-    const [usernameFocus, setUsernameFocus] = useState(false);
-    const [emailFocus, setEmailFocus] = useState(false);
-    const [passwordFocus, setPasswordFocus] = useState(false);
-    const [confirmPasswordFocus, setConfirmPasswordFocus] = useState(false);
-
-    const [usernamePlaceholder, setUsernamePlaceholder] = useState(false);
-    const [emailPlaceholder, setEmailPlaceholder] = useState(false);
-    const [passwordPlaceholder, setPasswordPlaceholder] = useState(false);
-    const [confirmPasswordPlaceholder, setConfirmPasswordPlaceholder] = useState(false);
+    const [showPlaceholderState, showPlaceholderDispatch] = useReducer(showPlaceholderReducer, {
+        showUsernamePlaceholder: false, showEmailPlaceholder: false,
+        showPasswordPlaceholde: false, showConfirmPasswordPlaceholder: false
+    });
 
     const [requestError, setRequestError] = useState('');
-    const [isRequestError, setIsRequestError] = useState(false);
 
     const [isLoading, setIsloading] = useState(false);
 
     const navigate = useNavigate();
 
+
+
     useEffect(() => {
-        username.length < 5 ? setIsValidUsername(false) : setIsValidUsername(true);
-        !emailRegex.test(email) ? setIsValidEmail(false) : setIsValidEmail(true);
-        password.length < 8 ? setIsValidPassword(false) : setIsValidPassword(true);
-        password !== confirmPassword ? setIsValidConfirmPassword(false) : setIsValidConfirmPassword(true);
-    }, [username, email, password, confirmPassword])
+
+        validInputDispatch({ type: 'isValidUsername', payload: inputState.username.length >= 5 });
+        validInputDispatch({ type: 'isValidEmail', payload: emailRegex.test(inputState.email) });
+        validInputDispatch({ type: 'isValidPassword', payload: inputState.password.length >= 8 });
+        validInputDispatch({ type: 'isValidConfirmPassword', payload: inputState.password === inputState.confirmPassword });
+
+    }, [inputState]);
+
 
     return (
         <form className='register-container' onSubmit={submit}>
 
             <h2 className='register-title'>Register</h2>
 
-            {isRequestError && <p className='register-request-error-text'>{requestError}</p>}
+            {requestError && <p className='register-request-error-text'>{requestError}</p>}
+
             <RegisterInput
                 id={'username'}
                 label={'Username'}
                 type={'text'}
-                value={username}
-                setState={setUsername}
+                value={inputState.username}
+                dispatch={inputDispatch}
+                action={'username'}
                 errorText={"Username must be at least 5 character."}
-                isValidInput={isValidUsername}
-                focus={usernameFocus}
-                setFocus={setUsernameFocus}
-                showPlaceholder={usernamePlaceholder}
+                isValidInput={validInputState.isValidUsername}
+                showPlaceholder={showPlaceholderState.showUsernamePlaceholder}
             />
 
             <RegisterInput
                 id={'email'}
                 label={"Email"}
                 type={'email'}
-                value={email}
-                setState={setEmail}
+                value={inputState.email}
+                dispatch={inputDispatch}
+                action={'email'}
                 errorText={"Not valid email address."}
-                isValidInput={isValidEmail}
-                focus={emailFocus}
-                setFocus={setEmailFocus}
-                showPlaceholder={emailPlaceholder}
+                isValidInput={validInputState.isValidEmail}
+                showPlaceholder={showPlaceholderState.showEmailPlaceholder}
             />
 
             <RegisterInput
                 id={'password'}
                 label={"Password"}
                 type={'password'}
-                value={password}
-                setState={setPassword}
+                value={inputState.password}
+                dispatch={inputDispatch}
+                action={'password'}
                 errorText={"Password must be at least 8 character."}
-                isValidInput={isValidPassword}
-                focus={passwordFocus}
-                setFocus={setPasswordFocus}
-                showPlaceholder={passwordPlaceholder}
+                isValidInput={validInputState.isValidPassword}
+                showPlaceholder={showPlaceholderState.showPasswordPlaceholder}
             />
 
             <RegisterInput
                 id={'confirmpassword'}
                 label={"Confirm Password"}
                 type={'password'}
-                value={confirmPassword}
-                setState={setConfirmPassword}
+                value={inputState.confirmPassword}
+                dispatch={inputDispatch}
+                action={'confirmPassword'}
                 errorText={"Password and Confirm Password must match."}
-                isValidInput={isValidConfirmPassword}
-                focus={confirmPasswordFocus}
-                setFocus={setConfirmPasswordFocus}
-                showPlaceholder={confirmPasswordPlaceholder}
+                isValidInput={validInputState.isValidConfirmPassword}
+                showPlaceholder={showPlaceholderState.showConfirmPasswordPlaceholder}
             />
 
             <button id='submit' aria-label='submit' className='register-submit-button'>
@@ -130,7 +128,7 @@ const Register = () => {
 
         if (!validate()) return;
 
-        setIsloading(true)
+        setIsloading(true);
 
         try {
 
@@ -139,9 +137,9 @@ const Register = () => {
             };
 
             const bodyContent = JSON.stringify({
-                username,
-                email,
-                password
+                username: inputState.usernamne,
+                email: inputState.email,
+                password: inputState.password
             });
 
             const response = await fetch('http://192.168.3.91:3166/mysql_register', {
@@ -156,7 +154,6 @@ const Register = () => {
             if (response.status === 201) {
                 navigate('/login');
             } else if (response.status === 409) {
-                setIsRequestError(true)
                 setRequestError(data.error);
             }
 
@@ -169,11 +166,12 @@ const Register = () => {
     }
 
     function validate() {
+
         let validate = true;
-        if (!username) { setUsernamePlaceholder(true); validate = false }
-        if (!email) { setEmailPlaceholder(true); validate = false }
-        if (!password) { setPasswordPlaceholder(true); validate = false }
-        if (!confirmPassword) { setConfirmPasswordPlaceholder(true); validate = false }
+        if (!inputState.username) { showPlaceholderDispatch({ type: 'showUsernamePlaceholder', payload: true }); validate = false };
+        if (!inputState.email) { showPlaceholderDispatch({ type: 'showEmailPlaceholder', payload: true }); validate = false };
+        if (!inputState.password) { showPlaceholderDispatch({ type: 'showPasswordPlaceholder', payload: true }); validate = false };
+        if (!inputState.confirmPassword) { showPlaceholderDispatch({ type: 'showConfirmPasswordPlaceholder', payload: true }); validate = false };
 
         return validate;
     }
