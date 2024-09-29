@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,9 @@ import PlatformButton from '../buttons/PlatformButton';
 import googleIcon from '../../images/icons8-google-48.png'
 import facebookIcon from '../../images/icons8-facebook-50.png'
 
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+
+import { gapi, loadClientAuth2 } from 'gapi-script'
 
 import '../../css/register_login.css';
 
@@ -29,6 +32,12 @@ const Login = () => {
 
     const navigate = useNavigate();
     const { setAuth } = useAuth();
+
+
+    const googleLogin = useGoogleLogin({
+        onSuccess: (user) => getGoogleUserDetails(user),
+        onError: error => console.log(error),
+    });
 
 
     return (
@@ -64,9 +73,10 @@ const Login = () => {
 
             <p onClick={() => { navigate('/register') }} className='login-information-text'>Don't have an account?<b> Register</b></p>
 
-            <PlatformButton icon={googleIcon}>Continue with Google</PlatformButton>
+            <PlatformButton onClick={googleLogin} icon={googleIcon}>Continue with Google</PlatformButton>
 
             <PlatformButton icon={facebookIcon} >Continue with Facebook</PlatformButton>
+
 
         </form>
     )
@@ -79,6 +89,21 @@ const Login = () => {
         if (!password) { setShowPasswordPlaceholder(true); validate = false }
         return validate;
     }
+
+    async function getGoogleUserDetails(user) {
+        const headerList = {
+            Authorization: `Bearer ${user.access_token}`,
+            Accept: 'application/json'
+        }
+        try {
+            const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, { headers: headerList });
+            const data = await response.json();
+            console.log(data);
+        } catch (e) {
+
+        }
+    }
+
     async function login(e) {
         e.preventDefault();
 

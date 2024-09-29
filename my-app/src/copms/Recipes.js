@@ -20,7 +20,7 @@ const Recipes = () => {
     return (
         <main className='recipes-container'>
 
-            <h2 className='recipes-title'>{auth.username ? auth.username : 'Your'} Recipes</h2>
+            <h2 className='recipes-title'>Prepared Recipes</h2>
 
             {
                 recipes?.length > 0

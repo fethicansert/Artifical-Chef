@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './copms/header/Header';
 import Main from './copms/Main';
 import Recipes from './copms/Recipes';
@@ -11,9 +11,10 @@ function App() {
 
   const [isPrepered, setIsPrepered] = useState(JSON.parse(sessionStorage.getItem('isPrepered')) || false);
 
+
   return (
 
-    <div className="App">
+    <div className="App" >
 
       <AuthProvider>
 

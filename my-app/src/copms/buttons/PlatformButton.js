@@ -1,8 +1,9 @@
 import React from 'react'
 
-const PlatformButton = ({ children, icon }) => {
+const PlatformButton = ({ children, icon, onClick }) => {
+    console.log(onClick);
     return (
-        <button type='button' className='login-submit-button platform-button'>
+        <button onClick={onClick} type='button' className='login-submit-button platform-button'>
             <img src={icon} width={30} />
             <span>{children}</span>
         </button>

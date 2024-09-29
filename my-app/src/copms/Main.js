@@ -1,11 +1,13 @@
 import React from 'react'
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
-import foodSupliesData from '../data/foodSuplies'
+
 import '../css/foodsuplies.css'
 
 import FoodSuplies from '../copms/FoodSuplies';
 import SelectedFoodSuplies from '../copms/SelectedFoodSuplies';
+
 import fartSound from '../sounds/zapsplat_cartoon_slime_fart_rasp_wet_bubbles_012_72938.mp3';
+
 import LoadingSpinner from '../copms/Loading';
 import Popup from '../copms/Popup';
 import { useNavigate } from 'react-router-dom';
@@ -37,6 +39,7 @@ const Main = ({ setIsPrepered }) => {
     const { auth } = useAuth();
 
     useEffect(() => {
+
 
         const getIngredients = async () => {
 

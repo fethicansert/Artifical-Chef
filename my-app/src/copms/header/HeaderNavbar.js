@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -6,12 +6,12 @@ import useLogut from '../../hooks/useLogut';
 import { ThreeDots } from 'react-loader-spinner';
 const HeaderNavbar = ({ isActiveNav, setIsActiveNav, isPrepered }) => {
 
+    const { auth } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
-    const { auth } = useAuth();
     const logout = useLogut();
 
-    const [isLoading, setIsLoading] = useState(false);
 
     return (
 
