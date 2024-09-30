@@ -1,6 +1,6 @@
 import React from 'react'
 import { GiHotMeal } from "react-icons/gi";
-
+import ingredientImg from '../images/icons8-ingredients-100.png'
 const SelectedFoodSuplies = ({ selectedFoodSuplies, removeFoodSuplie }) => {
     return (
         <div className='selected-food-suplies'>
@@ -25,7 +25,8 @@ const SelectedFoodSuplies = ({ selectedFoodSuplies, removeFoodSuplie }) => {
                             className='selected-suplies-text'>
                             Select your ingredients to let AI serve you the most delicious recipes !
                         </p>
-                        <GiHotMeal size={60} />
+                        {/* <GiHotMeal size={60} /> */}
+                        <img width="100" height="100" src={ingredientImg} alt="ingredients" />
                     </div>
             }
         </div>

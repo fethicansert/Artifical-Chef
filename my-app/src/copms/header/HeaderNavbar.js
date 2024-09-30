@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useLogut from '../../hooks/useLogut';
 import { ThreeDots } from 'react-loader-spinner';
-const HeaderNavbar = ({ isActiveNav, setIsActiveNav, isPrepered }) => {
+const HeaderNavbar = ({ isActiveNav, setIsActiveNav }) => {
 
     const { auth } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
@@ -24,18 +24,15 @@ const HeaderNavbar = ({ isActiveNav, setIsActiveNav, isPrepered }) => {
                     Prepare Recipes
                 </li>
 
-                {
-                    isPrepered &&
-                    <li
-                        onClick={() => navigateAndClose('recipes')}
-                        className={`header-nav-bar-list-item ${isActiveNav ? 'active' : ''}`}>
-                        Recipes
-                    </li>
-                }
+                <li
+                    onClick={() => navigateAndClose('recipes')}
+                    className={`header-nav-bar-list-item ${isActiveNav ? 'active' : ''}`}>
+                    Recipes
+                </li>
 
 
                 {
-                    !auth?.token &&
+                    !auth?.username &&
                     <li
                         onClick={() => navigateAndClose('login')}
                         className={`header-nav-bar-list-item ${isActiveNav ? 'active' : ''}`}>
@@ -44,7 +41,7 @@ const HeaderNavbar = ({ isActiveNav, setIsActiveNav, isPrepered }) => {
                 }
 
                 {
-                    !auth?.token &&
+                    !auth?.username &&
                     <li
                         onClick={() => navigateAndClose('register')}
                         className={`header-nav-bar-list-item ${isActiveNav ? 'active' : ''}`}>
@@ -53,7 +50,7 @@ const HeaderNavbar = ({ isActiveNav, setIsActiveNav, isPrepered }) => {
                 }
 
                 {
-                    auth?.token &&
+                    auth?.username &&
                     <li
                         onClick={async () => {
                             setIsLoading(true);

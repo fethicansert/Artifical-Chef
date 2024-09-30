@@ -24,11 +24,13 @@ const Header = ({ isPrepered }) => {
 
     useEffect(() => {
 
+        //set listener when comp mounted
         document.addEventListener('click', closeHeader);
 
+        //cleanr listeners when comp unmount
         return cleanUp;
 
-        //funs
+        //funcs
         function cleanUp() {
             document.removeEventListener('click', closeHeader)
         }

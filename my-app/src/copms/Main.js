@@ -13,7 +13,7 @@ import Popup from '../copms/Popup';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
-const Main = ({ setIsPrepered }) => {
+const Main = () => {
 
     //STATES AND HOOKS
 
@@ -194,8 +194,6 @@ const Main = ({ setIsPrepered }) => {
                 const recipesData = data.message;
 
                 sessionStorage.setItem('recipes', JSON.stringify(recipesData.recipes));
-                sessionStorage.setItem('isPrepered', true)
-                setIsPrepered(true);
 
                 navigate('recipes', { state: { recipesData } });
             } else if (response.status === 400) {

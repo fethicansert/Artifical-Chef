@@ -9,8 +9,6 @@ import Login from './copms/login-page/Login';
 
 function App() {
 
-  const [isPrepered, setIsPrepered] = useState(JSON.parse(sessionStorage.getItem('isPrepered')) || false);
-
 
   return (
 
@@ -18,7 +16,7 @@ function App() {
 
       <AuthProvider>
 
-        <Header isPrepered={isPrepered} />
+        <Header />
 
         <Routes>
 
@@ -26,7 +24,7 @@ function App() {
 
           <Route path='/login' index element={<Login />}></Route>
 
-          <Route path='/' index element={<Main setIsPrepered={setIsPrepered} />}></Route>
+          <Route path='/' index element={<Main />}></Route>
 
           <Route path='recipes' element={<Recipes />}></Route>
 

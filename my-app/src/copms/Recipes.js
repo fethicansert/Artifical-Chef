@@ -9,12 +9,13 @@ const Recipes = () => {
 
     const { state } = useLocation();
 
+
     const [recipes, setRecipes] = useState(JSON.parse(sessionStorage.getItem('recipes')) || state?.recipesData?.recipes);
 
     const { auth } = useAuth();
 
     useEffect(() => {
-        sessionStorage.setItem('recipes', JSON.stringify(recipes));
+        if (recipes !== undefined) sessionStorage.setItem('recipes', JSON.stringify(recipes));
     }, [recipes]);
 
     return (
