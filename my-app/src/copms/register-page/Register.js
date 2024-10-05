@@ -137,11 +137,11 @@ const Register = () => {
             };
 
             const bodyContent = JSON.stringify({
-                username: inputState.usernamne,
+                username: inputState.username,
                 email: inputState.email,
                 password: inputState.password
             });
-
+            console.log(bodyContent);
             const response = await fetch('http://192.168.3.91:3166/mysql_register', {
                 method: "POST",
                 body: bodyContent,

@@ -3,15 +3,18 @@ import IngredientsList from './IngredientsList';
 import InstructionsList from './InstructionsList';
 import { IoTimerOutline } from "react-icons/io5";
 import { IoPeopleCircleOutline } from "react-icons/io5";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import { ImBin } from "react-icons/im";
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { ThreeDots } from 'react-loader-spinner';
 
 const RecipeCard = ({ recipe, setRecipes }) => {
 
     //STATES AND HOOKS
     const [showError, setShowError] = useState(false);
+    const [isSaved, setIsSaved] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
     const navigate = useNavigate();
     const { auth } = useAuth();
     //UI
@@ -33,9 +36,10 @@ const RecipeCard = ({ recipe, setRecipes }) => {
             <InstructionsList instructions={recipe?.instructions} />
 
             <button
-                onClick={saveRecipe}
+                disabled={isSaved}
+                onClick={() => { saveRecipe(recipe) }}
                 className='save-recipe-btn'>
-                Save
+                {!isLoading ? !isSaved ? "Save" : "Saved" : <ThreeDots height={18.5} width={30} color='white' />}
             </button>
 
             <ImBin
@@ -62,9 +66,29 @@ const RecipeCard = ({ recipe, setRecipes }) => {
         });
     };
 
-    async function saveRecipe() {
+    async function saveRecipe(recipe) {
+
         if (!auth.username) return setShowError(true);
-        console.log(auth.username);
+
+        setIsLoading(true);
+        const requestBody = JSON.stringify({ ...recipe, userId: auth.id });
+
+        const headerList = {
+            "Content-Type": "application/json",
+        }
+
+        try {
+            const response = await fetch('http://192.168.3.91:3166/mysql_recipe', { headers: headerList, method: "POST", body: requestBody });
+            const data = await response.json();
+            console.log(data);
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setTimeout(() => {
+                setIsLoading(false);
+                setIsSaved(true)
+            }, 1500)
+        }
     }
 }
 

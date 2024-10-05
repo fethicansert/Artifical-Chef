@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import AuthProvider from './context/AuthProvider';
 import Register from './copms/register-page/Register';
 import Login from './copms/login-page/Login';
+import User from './copms/user-page/User';
 
 function App() {
 
@@ -27,6 +28,8 @@ function App() {
           <Route path='/' index element={<Main />}></Route>
 
           <Route path='recipes' element={<Recipes />}></Route>
+
+          <Route path='user/:user_id' element={<User />}></Route>
 
         </Routes>
 

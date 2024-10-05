@@ -20,6 +20,8 @@ const Header = ({ isPrepered }) => {
 
     const { auth } = useAuth();
 
+    const location = useLocation();
+
     const headerRef = useRef(null);
 
     useEffect(() => {
@@ -65,7 +67,7 @@ const Header = ({ isPrepered }) => {
                     color='#339c6e'
                     size={21}
                     className='header-user-icon'
-                    onClick={() => auth?.username ? console.log(`Hello ${auth.username}`) : navigate('/login')}
+                    onClick={() => auth?.username ? console.log(`Hello ${auth.username}`) : navigate('/login', { state: location.pathname })}
                 />
             }
         </header>

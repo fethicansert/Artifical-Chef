@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import useAuth from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ThreeDots } from 'react-loader-spinner';
 import { jwtDecode } from 'jwt-decode';
@@ -19,6 +19,7 @@ import '../../css/register_login.css';
 
 const Login = () => {
 
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -31,8 +32,11 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
+
+    const { state } = useLocation();
     const { setAuth } = useAuth();
 
+    console.log(state);
 
     const googleLogin = useGoogleLogin({
         onSuccess: (user) => getGoogleUserDetails(user),
@@ -48,6 +52,7 @@ const Login = () => {
             {isRequestError && <p className='register-request-error-text'>{requestError}</p>}
 
             <LoginInput
+                id={'username'}
                 value={username}
                 label={'Username'}
                 type={'text'}
@@ -56,6 +61,7 @@ const Login = () => {
             />
 
             <LoginInput
+                id={'password'}
                 value={password}
                 label={'Password'}
                 type={'password'}
@@ -134,8 +140,9 @@ const Login = () => {
                 const token = data.token;
                 const decoded = jwtDecode(token);
 
-                setAuth({ token: token, username: decoded.username });
-                navigate('/');
+
+                setAuth({ token: token, username: decoded.username, id: decoded.id });
+                navigate(state ? state : '/');
 
             } else if (response.status === 403) {
 

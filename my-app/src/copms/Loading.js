@@ -1,23 +1,25 @@
 import React from 'react'
-import { Hourglass } from 'react-loader-spinner';
-import { ThreeDots } from 'react-loader-spinner';
+import { RotatingLines } from 'react-loader-spinner';
 
 const LoadingSpinner = ({ text }) => {
     return (
         <div className='loading-spinner'>
-            <ThreeDots
+
+            <RotatingLines
                 visible={true}
-                height="80"
-                width="80"
+                height="105"
+                width="105"
+                strokeWidth='3.5'
                 ariaLabel="hourglass-loading"
                 wrapperStyle={{}}
                 wrapperClass=""
-                color='#D4212F'
-
+                strokeColor='#D4212F'
             />
+
             <p className='loading-spinner-text'>
-                {text}
+                Recipes are Preparing
             </p>
+
         </div>
     )
 }

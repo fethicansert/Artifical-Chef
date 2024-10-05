@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useLogut from '../../hooks/useLogut';
 import { ThreeDots } from 'react-loader-spinner';
 const HeaderNavbar = ({ isActiveNav, setIsActiveNav }) => {
 
     const { auth } = useAuth();
+    const { pathname } = useLocation();
     const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -52,6 +53,15 @@ const HeaderNavbar = ({ isActiveNav, setIsActiveNav }) => {
                 {
                     auth?.username &&
                     <li
+                        onClick={() => navigateAndClose(`user/${auth.id}`)}
+                        className={`header-nav-bar-list-item ${isActiveNav ? 'active' : ''}`}>
+                        {auth?.username}
+                    </li>
+                }
+
+                {
+                    auth?.username &&
+                    <li
                         onClick={async () => {
                             setIsLoading(true);
                             await logout();
@@ -70,7 +80,7 @@ const HeaderNavbar = ({ isActiveNav, setIsActiveNav }) => {
     );
 
     function navigateAndClose(location) {
-        navigate(location);
+        navigate(location, { state: pathname });
         setIsActiveNav(false);
     }
 }

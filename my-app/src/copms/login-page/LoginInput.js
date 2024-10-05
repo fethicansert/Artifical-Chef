@@ -6,7 +6,7 @@ const LoginInput = ({ id, label, value, type, setState, showPlaceholder }) => {
         <div className='form-input-label-group'>
             <label className='login-label' htmlFor='username'>{label}</label>
             <input
-                id='username'
+                id={id}
                 className='login-input'
                 value={value}
                 onChange={(e) => setState(e.target.value)}

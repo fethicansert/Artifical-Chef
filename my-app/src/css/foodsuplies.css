@@ -44,7 +44,7 @@ h3 {
     text-indent: 7px;
     border: none;
     border-radius: 3px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.444);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
 
     position: relative;
 }
@@ -124,10 +124,11 @@ h3 {
 
 .food-supluies-list-item,
 .food-supluies-type-list-item {
+    font-weight: 350;
     text-transform: capitalize;
     width: 100%;
     color: white;
-    padding: .6rem 0;
+    padding: .55rem 0;
     margin-bottom: .45rem;
     border-radius: 3px;
     box-shadow: 1px 1px 3px rgba(106, 31, 4, 0.466);
@@ -173,11 +174,12 @@ h3 {
     /* background: #56E878; */
     background: #339c6e;
     color: white;
-    padding: .7rem .2rem;
+    padding: .6rem .2rem;
     border-radius: 3px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.458);
     min-width: 100px;
     max-width: 120px;
+    font-weight: 350;
 }
 
 .prepare-recipies-btn {

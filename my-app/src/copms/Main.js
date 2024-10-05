@@ -52,9 +52,12 @@ const Main = () => {
                 const response_ = await fetch('http://192.168.3.91:3166/mysql_ingredient_types')
                 const data_ = await response_.json();
 
-                setFoodSuplieTypes(data_);
-                setFoodSuplies(data);
-                setFilteredFoodSuplies(data);
+                if (response.ok) {
+                    setFoodSuplieTypes(data_);
+                    setFoodSuplies(data);
+                    setFilteredFoodSuplies(data);
+                }
+
             } catch (e) {
                 console.log(e);
             } finally {
@@ -117,7 +120,7 @@ const Main = () => {
                         }
 
                     </main>
-                    : <LoadingSpinner text={'Artificial Chef preparing your recipes..'} />
+                    : <LoadingSpinner text={'Artificial Chef Preparing your Recipes...'} />
             }</>
     );
 
@@ -130,6 +133,7 @@ const Main = () => {
     function chooseFoodSuplie(suplie) {
         setSelectedFoodSuplies(prev => [...prev, suplie]);
         setFilteredFoodSuplies(prev => prev.filter(item => item.name !== suplie.name))
+        setSearcText('');
     };
 
     function removeFoodSuplie(suplie) {
@@ -189,10 +193,11 @@ const Main = () => {
                 headers: headerList
             });
 
+
             if (response.status === 200) {
                 const data = await response.json();
                 const recipesData = data.message;
-
+                console.log(data.message);
                 sessionStorage.setItem('recipes', JSON.stringify(recipesData.recipes));
 
                 navigate('recipes', { state: { recipesData } });

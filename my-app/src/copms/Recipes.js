@@ -9,7 +9,6 @@ const Recipes = () => {
 
     const { state } = useLocation();
 
-
     const [recipes, setRecipes] = useState(JSON.parse(sessionStorage.getItem('recipes')) || state?.recipesData?.recipes);
 
     const { auth } = useAuth();
