@@ -1,5 +1,6 @@
 .recipes-container {
     padding: .7rem .6rem;
+    position: relative;
 }
 
 .recipes-title {

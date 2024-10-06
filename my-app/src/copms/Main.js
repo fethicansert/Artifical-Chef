@@ -27,16 +27,23 @@ const Main = () => {
     const [isPrepareRecipesLoading, setPrepareRecipesIsLoading] = useState(false);
     const [isIngredientsLoading, setIsIngredientsLoading] = useState(false);
 
-    //error states
-    const [errorMessage, setErrorMessage] = useState('');
+    //popup options
+    const [popupOptions, setPopupOptions] = useState({
+        message: '',
+        show: false,
+        btnColor: '#339c6e',
+        onClick: closePopup,
+        btnName: 'Close'
+    });
 
     //searct states
     const [searchText, setSearcText] = useState('');
 
     //hooks
-    const audioRef = useRef(null);
     const navigate = useNavigate();
-    const { auth } = useAuth();
+
+
+    console.log(selectedFoodSuplies);
 
     useEffect(() => {
 
@@ -76,6 +83,7 @@ const Main = () => {
 
     useEffect(() => {
         sessionStorage.setItem('selectedFoodSuplies', JSON.stringify(selectedFoodSuplies));
+        sessionStorage.getItem('')
     }, [selectedFoodSuplies]);
 
     useEffect(() => {
@@ -108,15 +116,11 @@ const Main = () => {
                             onClick={prepareRecipies}
                             className='prepare-recipies-btn'>
                             Prepare
-                            <audio ref={audioRef} src={fartSound}></audio>
                         </button>
 
                         {
-                            errorMessage &&
-                            <Popup
-                                message={errorMessage}
-                                setErrorMessage={setErrorMessage}
-                            />
+                            popupOptions.show &&
+                            <Popup popupOptions={popupOptions} setPopupOptions={setPopupOptions} />
                         }
 
                     </main>
@@ -125,6 +129,15 @@ const Main = () => {
     );
 
     ////FUNCTIONS
+
+    function showPopup(message) {
+        setPopupOptions(prev => ({ ...prev, message: message, show: true }))
+    }
+
+    function closePopup() {
+        setPopupOptions(prev => ({ ...prev, show: false }))
+    };
+
     function validate() {
         if (selectedFoodSuplies.length === 0) return false
         return true
@@ -172,7 +185,7 @@ const Main = () => {
     async function prepareRecipies() {
         // audioRef.current.play();
 
-        if (!validate()) return setErrorMessage("Before starting to create a recipe, you must select the ingredients!");
+        if (!validate()) return showPopup("Before starting to create a recipe, you must select the ingredients!");
 
         try {
             setPrepareRecipesIsLoading(true);
@@ -202,10 +215,10 @@ const Main = () => {
 
                 navigate('recipes', { state: { recipesData } });
             } else if (response.status === 400) {
-                setErrorMessage("Something went wrong !");
+                showPopup('Something went wrong !')
             }
         } catch (e) {
-            setErrorMessage("Something went wrong !");
+            showPopup('Something went wrong !')
         } finally {
             setPrepareRecipesIsLoading(false);
         }

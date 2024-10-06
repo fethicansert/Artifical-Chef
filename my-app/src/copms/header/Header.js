@@ -9,7 +9,7 @@ import HeaderNavbar from './HeaderNavbar';
 
 import { FaUser } from "react-icons/fa6";
 
-import logo from '../../images/Unknown.jpeg'
+
 import useAuth from '../../hooks/useAuth';
 
 const Header = ({ isPrepered }) => {
@@ -42,7 +42,7 @@ const Header = ({ isPrepered }) => {
                 setIsActiveNav(false);
             }
         }
-    }, [])
+    }, []);
 
     return (
         <header ref={headerRef}>
@@ -62,12 +62,13 @@ const Header = ({ isPrepered }) => {
                 setIsActiveNav={setIsActiveNav}
                 isPrepered={isPrepered}
             />
+
             {auth.username &&
                 <FaUser
                     color='#339c6e'
                     size={21}
                     className='header-user-icon'
-                    onClick={() => auth?.username ? console.log(`Hello ${auth.username}`) : navigate('/login', { state: location.pathname })}
+                    onClick={() => auth?.username ? navigate(`user/${auth.id}`) : navigate('/login', { state: location.pathname })}
                 />
             }
         </header>

@@ -41,6 +41,7 @@
     font-size: 1rem;
     font-weight: 450;
     margin-bottom: .2rem;
+    width: min-content;
 }
 
 .register-title,

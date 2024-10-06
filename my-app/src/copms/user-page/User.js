@@ -23,10 +23,9 @@ const User = () => {
     }, []);
 
 
-
     return (
         <main>
-            <h2>Saved Recipes</h2>
+            <h2>{auth.username} Recipes</h2>
             asdasdas
         </main>
     )

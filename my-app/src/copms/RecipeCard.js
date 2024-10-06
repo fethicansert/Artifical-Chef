@@ -5,18 +5,19 @@ import { IoTimerOutline } from "react-icons/io5";
 import { IoPeopleCircleOutline } from "react-icons/io5";
 import { ImBin } from "react-icons/im";
 import useAuth from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ThreeDots } from 'react-loader-spinner';
 
-const RecipeCard = ({ recipe, setRecipes }) => {
+const RecipeCard = ({ recipe, setRecipes, setPopupOptions }) => {
+
 
     //STATES AND HOOKS
-    const [showError, setShowError] = useState(false);
-    const [isSaved, setIsSaved] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    const navigate = useNavigate();
     const { auth } = useAuth();
+    const { pathname } = useLocation()
+    const navigate = useNavigate();
+
+
     //UI
     return (
         <article className='recipe-card'>
@@ -25,9 +26,9 @@ const RecipeCard = ({ recipe, setRecipes }) => {
 
             <div className='recipe-info-container'>
 
-                <p className='recipe-info-text'><IoTimerOutline size={23} /> {recipe?.cookingTime}</p>
+                <p className='recipe-info-text'><IoTimerOutline size={23} />{recipe?.cookingTime}</p>
 
-                <p className='recipe-info-text'><IoPeopleCircleOutline size={23} /> {recipe?.serve}</p>
+                <p className='recipe-info-text'><IoPeopleCircleOutline size={23} />{recipe?.serve}</p>
 
             </div>
 
@@ -35,11 +36,12 @@ const RecipeCard = ({ recipe, setRecipes }) => {
 
             <InstructionsList instructions={recipe?.instructions} />
 
+            {/* if recipe isSaved propertie true than button name "Recipe Saved" else "Save" */}
+            {/* if loading state trure show loading animation */}
             <button
-                disabled={isSaved}
-                onClick={() => { saveRecipe(recipe) }}
+                onClick={() => saveRecipe(recipe)}
                 className='save-recipe-btn'>
-                {!isLoading ? !isSaved ? "Save" : "Saved" : <ThreeDots height={18.5} width={30} color='white' />}
+                {!isLoading ? recipe.isSaved ? "recipe saved" : "save" : <ThreeDots height={18.5} width={30} color='white' />}
             </button>
 
             <ImBin
@@ -49,16 +51,21 @@ const RecipeCard = ({ recipe, setRecipes }) => {
                 onClick={() => removeRecipe(recipe.id)}
             />
 
-            {
-                showError &&
-                <p className='recipe-login-error-text'>
-                    Please login first.<b onClick={() => navigate('/login')}>Login</b>
-                </p>
-            }
         </article>
     );
 
     //FUNCTIONS
+
+    //set closepopup
+    function closePopup() {
+        setPopupOptions(prev => ({ ...prev, show: false }));
+    }
+
+    function showPopup(message, btnName, btnColor, func) {
+        setPopupOptions(prev => ({ ...prev, show: true, message: message, btnName: btnName, btnColor: btnColor, onClick: func }))
+    }
+
+    //removes recipe from recipes
     function removeRecipe(id) {
         setRecipes(prev => {
             const removedRecipes = prev.filter(recipe => recipe.id !== id);
@@ -66,30 +73,57 @@ const RecipeCard = ({ recipe, setRecipes }) => {
         });
     };
 
-    async function saveRecipe(recipe) {
+    //save recipe to current user recipes   
+    async function saveRecipe(currentRecipe) {
 
-        if (!auth.username) return setShowError(true);
+        //if not authenticated set showpopup
+        if (!auth.username) return showPopup("Login required to save recipe !", "Login", "#D4212F", navigateLogin)
 
+
+        //if recipe alreadt saved set showpopup
+        if (recipe.isSaved) return showPopup("The recipe already in your recipe list !", "Close", "#D4212F", closePopup)
+
+
+        //show loading animation
         setIsLoading(true);
-        const requestBody = JSON.stringify({ ...recipe, userId: auth.id });
 
+        //parse currentRecipe js object to json string
+        const requestBody = JSON.stringify({ ...currentRecipe, userId: auth.id });
+
+        //set type of content which use in request body
         const headerList = {
             "Content-Type": "application/json",
         }
 
         try {
+            //send request to back-end
             const response = await fetch('http://192.168.3.91:3166/mysql_recipe', { headers: headerList, method: "POST", body: requestBody });
-            const data = await response.json();
-            console.log(data);
-        } catch (e) {
-            console.log(e);
-        } finally {
-            setTimeout(() => {
-                setIsLoading(false);
-                setIsSaved(true)
-            }, 1500)
+
+            //if recipe created(201) than set isSaved properties
+            if (response.status === 201) {
+                setRecipes(prev => {
+                    return prev.map(res => {
+                        if (res.id === recipe.id) return { ...res, isSaved: true }
+                        return res;
+                    });
+                });
+            }
+
+            //if recipe already in db(409)--conflict than show popup
+            else if (response.status === 409) showPopup("The recipe already in your recipe list !", "Close", "#D4212F", closePopup)
+
         }
+        catch (e) { console.log(e); }
+        //stop loading animation
+        finally { setIsLoading(false) }
+
     }
+
+    //navigate login with current pathname state
+    function navigateLogin() {
+        navigate('/login', { state: pathname })
+    }
+
 }
 
 export default RecipeCard

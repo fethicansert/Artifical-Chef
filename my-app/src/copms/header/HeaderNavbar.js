@@ -35,7 +35,7 @@ const HeaderNavbar = ({ isActiveNav, setIsActiveNav }) => {
                 {
                     !auth?.username &&
                     <li
-                        onClick={() => navigateAndClose('login')}
+                        onClick={() => navigateAndClose('login', pathname)}
                         className={`header-nav-bar-list-item ${isActiveNav ? 'active' : ''}`}>
                         Login
                     </li>
@@ -79,8 +79,8 @@ const HeaderNavbar = ({ isActiveNav, setIsActiveNav }) => {
         </nav>
     );
 
-    function navigateAndClose(location) {
-        navigate(location, { state: pathname });
+    function navigateAndClose(location, state) {
+        navigate(location, { state: state });
         setIsActiveNav(false);
     }
 }

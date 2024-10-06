@@ -1,19 +1,42 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RiRobot2Line } from "react-icons/ri";
 
-const Popup = ({ message, setShowPopup, setErrorMessage }) => {
+const Popup = ({ popupOptions, setPopupOptions }) => {
+
+    const popupRef = useRef(null);
+    console.log(popupOptions);
+
+    useEffect(() => {
+        //set listener when comp mounted
+        document.addEventListener('mousedown', closeHeader);
+
+        //funcs
+        function cleanUp() {
+            document.removeEventListener('mousedown', closeHeader)
+        }
+
+        function closeHeader(event) {
+            if (!popupRef.current.contains(event.target)) {
+                setPopupOptions(prev => ({ ...prev, show: false }));
+            }
+        }
+
+        //cleanr listeners when comp unmount
+        return cleanUp;
+    }, []);
+
     return (
-        <div className='popup'>
-            <p className='popup-message'>{message}</p>
+        <div ref={popupRef} className='popup'>
+
+            <p className='popup-message'>{popupOptions.message}</p>
+
             <button
-                onClick={() => {
-                    setErrorMessage('');
-                }}
-                className='popup-button'>
-                Close
+                className='popup-button'
+                style={{ backgroundColor: popupOptions.btnColor }}
+                onClick={popupOptions.onClick}>
+                {popupOptions.btnName}
             </button>
 
-            {/* <RiRobot2Line className='popup-icon' size={60} /> */}
         </div>
     )
 }
