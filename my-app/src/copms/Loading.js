@@ -1,7 +1,7 @@
 import React from 'react'
 import { RotatingLines } from 'react-loader-spinner';
 
-const LoadingSpinner = ({ text }) => {
+const LoadingSpinner = ({ text, color = '#D4212F' }) => {
     return (
         <div className='loading-spinner'>
 
@@ -13,12 +13,10 @@ const LoadingSpinner = ({ text }) => {
                 ariaLabel="hourglass-loading"
                 wrapperStyle={{}}
                 wrapperClass=""
-                strokeColor='#D4212F'
+                strokeColor={color}
             />
 
-            <p className='loading-spinner-text'>
-                Recipes are Preparing
-            </p>
+            {text && <p className='loading-spinner-text'>{text}</p>}
 
         </div>
     )

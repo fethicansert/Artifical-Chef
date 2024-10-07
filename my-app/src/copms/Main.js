@@ -46,34 +46,8 @@ const Main = () => {
     console.log(selectedFoodSuplies);
 
     useEffect(() => {
-
-
-        const getIngredients = async () => {
-
-            try {
-                setIsIngredientsLoading(true);
-
-                const response = await fetch('http://192.168.3.91:3166/mysql_ingredients');
-                const data = await response.json();
-
-                const response_ = await fetch('http://192.168.3.91:3166/mysql_ingredient_types')
-                const data_ = await response_.json();
-
-                if (response.ok) {
-                    setFoodSuplieTypes(data_);
-                    setFoodSuplies(data);
-                    setFilteredFoodSuplies(data);
-                }
-
-            } catch (e) {
-                console.log(e);
-            } finally {
-                setTimeout(() => {
-                    setIsIngredientsLoading(false);
-                }, 400);
-            }
-        }
         getIngredients();
+        filterSelectedFoodSuplies(foodSuplies);
     }, []);
 
     useEffect(() => {
@@ -86,9 +60,6 @@ const Main = () => {
         sessionStorage.getItem('')
     }, [selectedFoodSuplies]);
 
-    useEffect(() => {
-        filterSelectedFoodSuplies(foodSuplies);
-    }, []);
 
     //UI
     return (
@@ -118,13 +89,19 @@ const Main = () => {
                             Prepare
                         </button>
 
+                        {/* if show === true render popup and overlay */}
+
                         {
                             popupOptions.show &&
+
                             <Popup popupOptions={popupOptions} setPopupOptions={setPopupOptions} />
+
                         }
 
+                        <div className={`overlay ${popupOptions.show ? 'active' : null}`} />
+
                     </main>
-                    : <LoadingSpinner text={'Artificial Chef Preparing your Recipes...'} />
+                    : <LoadingSpinner text={'Recipes are Preparing'} />
             }</>
     );
 
@@ -221,6 +198,32 @@ const Main = () => {
             showPopup('Something went wrong !')
         } finally {
             setPrepareRecipesIsLoading(false);
+        }
+    }
+
+    async function getIngredients() {
+
+        try {
+            setIsIngredientsLoading(true);
+
+            const response = await fetch('http://192.168.3.91:3166/mysql_ingredients');
+            const data = await response.json();
+
+            const response_ = await fetch('http://192.168.3.91:3166/mysql_ingredient_types')
+            const data_ = await response_.json();
+
+            if (response.ok) {
+                setFoodSuplieTypes(data_);
+                setFoodSuplies(data);
+                setFilteredFoodSuplies(data);
+            }
+
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setTimeout(() => {
+                setIsIngredientsLoading(false);
+            }, 400);
         }
     }
 

@@ -38,6 +38,9 @@ const Recipes = () => {
                 popupOptions.show && <Popup popupOptions={popupOptions} setPopupOptions={setPopupOptions} />
             }
 
+
+            <div className={`overlay ${popupOptions.show ? 'active' : null}`} />
+
         </main>
     )
 

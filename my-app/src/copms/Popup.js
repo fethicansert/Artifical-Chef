@@ -8,14 +8,14 @@ const Popup = ({ popupOptions, setPopupOptions }) => {
 
     useEffect(() => {
         //set listener when comp mounted
-        document.addEventListener('mousedown', closeHeader);
+        document.addEventListener('mousedown', closePopup);
 
         //funcs
         function cleanUp() {
-            document.removeEventListener('mousedown', closeHeader)
+            document.removeEventListener('mousedown', closePopup)
         }
 
-        function closeHeader(event) {
+        function closePopup(event) {
             if (!popupRef.current.contains(event.target)) {
                 setPopupOptions(prev => ({ ...prev, show: false }));
             }
@@ -25,19 +25,25 @@ const Popup = ({ popupOptions, setPopupOptions }) => {
         return cleanUp;
     }, []);
 
+
+
     return (
-        <div ref={popupRef} className='popup'>
+        <>
+            <div ref={popupRef} className='popup'>
 
-            <p className='popup-message'>{popupOptions.message}</p>
+                <p className='popup-message'>{popupOptions.message}</p>
 
-            <button
-                className='popup-button'
-                style={{ backgroundColor: popupOptions.btnColor }}
-                onClick={popupOptions.onClick}>
-                {popupOptions.btnName}
-            </button>
+                <button
+                    className='popup-button'
+                    style={{ backgroundColor: popupOptions.btnColor }}
+                    onClick={popupOptions.onClick}>
+                    {popupOptions.btnName}
+                </button>
 
-        </div>
+            </div>
+
+        </>
+
     )
 }
 
