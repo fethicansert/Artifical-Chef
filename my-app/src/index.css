@@ -191,6 +191,7 @@ header h1 {
   cursor: pointer;
   color: #D4212F;
   opacity: 0;
+  text-transform: capitalize;
   /* transition: opacity 1s ease; */
 }
 

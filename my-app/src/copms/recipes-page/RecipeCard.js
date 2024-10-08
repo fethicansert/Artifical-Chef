@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import IngredientsList from './IngredientsList';
-import InstructionsList from './InstructionsList';
+import IngredientsList from '../home-page/IngredientsList';
+import InstructionsList from '../home-page/InstructionsList';
 import { IoTimerOutline } from "react-icons/io5";
 import { IoPeopleCircleOutline } from "react-icons/io5";
 import { ImBin } from "react-icons/im";
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ThreeDots, RotatingLines } from 'react-loader-spinner';
-import LoadingSpinner from './Loading';
+import LoadingSpinner from '../Loading';
 
 const RecipeCard = ({ recipe, setRecipes, setPopupOptions }) => {
 
@@ -102,7 +102,9 @@ const RecipeCard = ({ recipe, setRecipes, setPopupOptions }) => {
         //set type of content which use in request body
         const headerList = {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth.token}`
         }
+
 
 
         try {

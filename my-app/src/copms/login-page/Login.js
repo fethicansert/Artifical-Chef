@@ -36,8 +36,6 @@ const Login = () => {
     const { state } = useLocation();
     const { setAuth } = useAuth();
 
-    console.log(state);
-
     const googleLogin = useGoogleLogin({
         onSuccess: (user) => getGoogleUserDetails(user),
         onError: error => console.log(error),
@@ -140,8 +138,7 @@ const Login = () => {
                 const token = data.token;
                 const decoded = jwtDecode(token);
 
-
-                setAuth({ token: token, username: decoded.username, id: decoded.id });
+                setAuth({ ...decoded, token });
                 navigate(state ? state : '/');
 
             } else if (response.status === 403) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { GiHotMeal } from "react-icons/gi";
-import ingredientImg from '../images/icons8-ingredients-100.png'
+import ingredientImg from '../../images/icons8-ingredients-100.png'
 const SelectedFoodSuplies = ({ selectedFoodSuplies, removeFoodSuplie }) => {
     return (
         <div className='selected-food-suplies'>

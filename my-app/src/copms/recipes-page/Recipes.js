@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import '../css/recipes.css'
+import '../../css/recipes.css'
 import RecipeCard from './RecipeCard';
 import { v4 as uuidv4 } from 'uuid';
-import Popup from './Popup';
+import Popup from '../Popup';
 
 const Recipes = () => {
 

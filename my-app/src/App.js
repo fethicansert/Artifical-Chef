@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Header from './copms/header/Header';
-import Main from './copms/Main';
-import Recipes from './copms/Recipes';
+import Main from './copms/home-page/Main';
+import Recipes from './copms/recipes-page/Recipes';
 import { Routes, Route } from "react-router-dom";
 import AuthProvider from './context/AuthProvider';
 import Register from './copms/register-page/Register';

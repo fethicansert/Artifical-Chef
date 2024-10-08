@@ -1,17 +1,17 @@
 import React from 'react'
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 
-import '../css/foodsuplies.css'
+import '../../css/foodsuplies.css'
 
-import FoodSuplies from '../copms/FoodSuplies';
-import SelectedFoodSuplies from '../copms/SelectedFoodSuplies';
+import FoodSuplies from './FoodSuplies';
+import SelectedFoodSuplies from './SelectedFoodSuplies';
 
-import fartSound from '../sounds/zapsplat_cartoon_slime_fart_rasp_wet_bubbles_012_72938.mp3';
+import fartSound from '../../sounds/zapsplat_cartoon_slime_fart_rasp_wet_bubbles_012_72938.mp3';
 
-import LoadingSpinner from '../copms/Loading';
-import Popup from '../copms/Popup';
+import LoadingSpinner from '../Loading';
+import Popup from '../Popup';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 const Main = () => {
 
@@ -42,8 +42,9 @@ const Main = () => {
     //hooks
     const navigate = useNavigate();
 
+    //auth
+    const { auth } = useAuth();
 
-    console.log(selectedFoodSuplies);
 
     useEffect(() => {
         getIngredients();
@@ -168,19 +169,21 @@ const Main = () => {
             setPrepareRecipesIsLoading(true);
 
             const headerList = {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth.token}`
             };
 
             const bodyContent = JSON.stringify({
                 userContent: selectedFoodSuplies.map(item => item.name).join(', ')
             });
 
-            console.log(bodyContent);
+            console.log(headerList);
 
             const response = await fetch("http://192.168.3.91:3166/groqAI/", {
                 method: "POST",
                 body: bodyContent,
-                headers: headerList
+                headers: headerList,
+                credentials: 'include'
             });
 
 
