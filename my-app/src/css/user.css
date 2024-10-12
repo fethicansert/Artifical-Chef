@@ -1,5 +1,5 @@
 .user-container {
-    padding: 1rem;
+    padding: 1rem .5rem;
     display: flex;
     flex-direction: column;
 }
@@ -16,50 +16,80 @@
     margin: .2rem 0;
 }
 
-.user-info.cap {
+.user-info.capitalize {
     text-transform: capitalize;
 }
 
-.user-edit-btn,
-.user-save-btn {
+.user-update-btn,
+.user-confirm-btn {
+    width: 100%;
+    font-size: .9rem;
     border-radius: 4px;
     border: none;
-    margin-top: .3rem;
-    padding: .5rem 1.1rem;
+    /* margin-top: .3rem; */
+    padding: .5rem 0rem;
     color: white;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35);
 }
 
-.user-edit-btn {
+.user-update-btn {
     background: #D4212F;
 }
 
-.user-save-btn {
+.user-confirm-btn {
     background: #339C6E;
+    margin-left: .4rem;
 }
 
-.user-btn-group {
-    display: flex;
-    gap: 10px;
-}
+
 
 .user-input {
-    border-radius: 4px;
-    padding: .5rem 0;
+    font-family: inherit;
+    width: fit-content;
+    padding: 0rem 0;
     margin: .1rem 0;
-    width: 200px;
     cursor: pointer;
     text-indent: 5px;
-    margin-bottom: .3rem;
     border: none;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+    /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35); */
 }
 
 .user-input:focus {
-    outline: 1px #D4212F solid;
+    border-bottom: 1px solid #d4213079;
+    outline: none
 }
 
-.user-flex {
+.user-input.username {
+    width: 40vw;
+    text-transform: capitalize;
+    color: #D4212F;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.user-input.email,
+.user-input.firstname,
+.user-input.lastname {
+    font-size: .9rem;
+}
+
+.user-input.firstname,
+.user-input.lastname {
+    text-transform: capitalize;
+    width: 23vw;
+}
+
+.user-fullname {
+    margin-top: auto;
+    display: flex;
+    gap: 6px;
+}
+
+.user-info-container,
+.user-input-container,
+.user-button-container {
+    margin: .8rem 0;
     display: flex;
     align-items: center;
     justify-content: space-between;

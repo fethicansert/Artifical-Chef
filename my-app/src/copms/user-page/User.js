@@ -1,24 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-
-
 import '../../css/user.css'
+import UserInfo from './UserInfo';
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const User = () => {
 
     //STATES AND HOOKS  
     const { user_id } = useParams();
     const { auth, setAuth } = useAuth();
 
-    const [showEdit, setShowEdit] = useState(false)
+    const [showEdit, setShowEdit] = useState(false);
 
-    const [username, setUsername] = useState('');
-    const [firstname, setFirstname] = useState('');
-    const [lastname, setLastname] = useState('');
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState(auth.username);
+    const [firstname, setFirstname] = useState(auth.firstname || '');
+    const [lastname, setLastname] = useState(auth.lastname || '');
+    const [email, setEmail] = useState(auth.email);
 
 
-    const formRef = useRef();
+    const usernameInputRef = useRef();
 
 
     useEffect(() => {
@@ -26,31 +26,62 @@ const User = () => {
     }, []);
 
 
+    useEffect(() => {
+        if (showEdit === true) {
+            usernameInputRef.current.focus();
+        } else {
+
+        }
+    }, [showEdit])
+
+
     //UI
     return (
         <main className='user-container'>
             {
                 !showEdit
-                    ? <>
-                        <div className='user-flex'></div>
-                        <h2 className='user-title'>{auth.username}</h2>
-                        <span className='user-info cap'>
-                            {auth.firstname ? auth.firstname : 'Firstname'} {auth.lastname ? auth.lastname : "Lastname"}
-                        </span>
+                    ? <UserInfo username={auth.username} firstname={auth.firstname} lastname={auth.lastname} email={auth.email} />
+                    : <>
 
-                        <span className='user-info'>{auth.email}</span>
+                        <div className='user-input-container'>
+                            <input
+                                ref={usernameInputRef}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder='Username'
+                                className='user-input username'
+                                type='text'
+                            />
+                            <div className='user-fullname'>
+                                <input
+                                    value={firstname}
+                                    onChange={(e) => setFirstname(e.target.value)}
+                                    placeholder='Firstname'
+                                    className='user-input firstname'
+                                    type='text'
+                                />
+                                <input
+                                    value={lastname}
+                                    onChange={(e) => setLastname(e.target.value)}
+                                    placeholder='Lastname'
+                                    className='user-input lastname'
+                                    type='text'
+                                />
+                            </div>
+                        </div>
 
+                        <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder='Email'
+                            className='user-input email'
+                            type='text'
+                        />
                     </>
-                    : <form ref={formRef} onSubmit={(e) => updateUser}>
-                        <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Enter new username' className='user-input' type='text' />
-                        <input value={firstname} onChange={(e) => setFirstname(e.target.value)} placeholder='Enter new firstname' className='user-input' type='text' />
-                        <input value={lastname} onChange={(e) => setLastname(e.target.value)} placeholder='Enter new lastname' className='user-input' type='text' />
-                        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Enter new email' className='user-input' type='text' />
-                    </form>
             }
-            <div className='user-btn-group'>
-                <button onClick={toogleEdit} className='user-edit-btn'>{!showEdit ? 'Edit' : 'Cancel'}</button>
-                {showEdit && <button onClick={updateUser} type='submit' className='user-save-btn'>Save</button>}
+            <div className='user-button-container'>
+                <button onClick={toogleEdit} className='user-update-btn'>{!showEdit ? 'Update' : 'Cancel'}</button>
+                {showEdit && <button onClick={updateUser} type='submit' className='user-confirm-btn'>Confirm</button>}
             </div>
         </main>
     );
@@ -65,10 +96,10 @@ const User = () => {
         };
 
         const bodyContent = {
-            username,
-            firstname: firstname || 'firstname',
-            lastname: lastname || 'lastname',
-            email,
+            username: username,
+            firstname: firstname,
+            lastname: lastname,
+            email: email
         };
 
         try {
@@ -79,11 +110,14 @@ const User = () => {
                 credentials: 'include',
             });
 
+            const data = await response.json();
+            console.log(data);
+
             if (response.status === 200) {
+                setAuth({ ...auth, ...data.updatedUser });
                 toogleEdit();
-                setAuth(prev => ({ ...auth, ...bodyContent }))
-            }
-            // console.log(await response.json());
+            };
+
         } catch (e) {
             console.log(e);
         }
@@ -92,25 +126,11 @@ const User = () => {
 
     function validateInput() {
         return 1;
+        // return isValid
     }
 
     function toogleEdit() {
         setShowEdit(!showEdit);
-        if (showEdit === false) {
-            setUsername(auth.username)
-            setFirstname(auth.firstname)
-            setLastname(auth.lastname);
-            setEmail(auth.email);
-        }
-
-
-    }
-
-    function clearInputs() {
-        // setUsername('')
-        // setFirstname('')
-        // setLastname('');
-        // setEmail('');
     }
 
 
