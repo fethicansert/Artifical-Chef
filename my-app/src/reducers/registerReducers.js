@@ -48,3 +48,19 @@ export const showPlaceholderReducer = (state, action) => {
 };
 
 
+export const userUpdateInputReducer = (state, action) => {
+
+    switch (action.type) {
+
+        case 'username': return { ...state, username: action.payload };
+
+        case 'email': return { ...state, email: action.payload };
+
+        case 'firstname': return { ...state, firstname: action.payload };
+
+        case 'lastname': return { ...state, lastname: action.payload };
+
+        default: return state;
+    };
+}
+

@@ -1,38 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import '../../css/user.css'
 import UserInfo from './UserInfo';
+import UserInput from './UserInput';
+import { userUpdateInputReducer } from '../../reducers/registerReducers';
+
+import '../../css/user.css'
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const User = () => {
 
     //STATES AND HOOKS  
     const { user_id } = useParams();
+
     const { auth, setAuth } = useAuth();
 
     const [showEdit, setShowEdit] = useState(false);
 
-    const [username, setUsername] = useState(auth.username);
-    const [firstname, setFirstname] = useState(auth.firstname || '');
-    const [lastname, setLastname] = useState(auth.lastname || '');
-    const [email, setEmail] = useState(auth.email);
+    const usernameRef = useRef();
 
+    const [updateInput, updateDispatch] = useReducer(userUpdateInputReducer, {
+        username: auth.username || '', email: auth.email || '',
+        firstname: auth.firstname || '', lastname: auth.lastname || ''
+    });
 
-    const usernameInputRef = useRef();
+    useEffect(() => { getUserData() }, []);
 
+    useEffect(() => { if (showEdit === true) usernameRef.current.focus() }, [showEdit]);
 
-    useEffect(() => {
-        getUserData();
-    }, []);
-
-
-    useEffect(() => {
-        if (showEdit === true) {
-            usernameInputRef.current.focus();
-        } else {
-
-        }
-    }, [showEdit])
 
 
     //UI
@@ -41,43 +35,7 @@ const User = () => {
             {
                 !showEdit
                     ? <UserInfo username={auth.username} firstname={auth.firstname} lastname={auth.lastname} email={auth.email} />
-                    : <>
-
-                        <div className='user-input-container'>
-                            <input
-                                ref={usernameInputRef}
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                placeholder='Username'
-                                className='user-input username'
-                                type='text'
-                            />
-                            <div className='user-fullname'>
-                                <input
-                                    value={firstname}
-                                    onChange={(e) => setFirstname(e.target.value)}
-                                    placeholder='Firstname'
-                                    className='user-input firstname'
-                                    type='text'
-                                />
-                                <input
-                                    value={lastname}
-                                    onChange={(e) => setLastname(e.target.value)}
-                                    placeholder='Lastname'
-                                    className='user-input lastname'
-                                    type='text'
-                                />
-                            </div>
-                        </div>
-
-                        <input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Email'
-                            className='user-input email'
-                            type='text'
-                        />
-                    </>
+                    : <UserInput updateDispatch={updateDispatch} updateInput={updateInput} usernameRef={usernameRef} />
             }
             <div className='user-button-container'>
                 <button onClick={toogleEdit} className='user-update-btn'>{!showEdit ? 'Update' : 'Cancel'}</button>
@@ -86,9 +44,10 @@ const User = () => {
         </main>
     );
 
+
     //FUNCTIONS
     async function updateUser() {
-        if (!validateInput()) return;
+        // if (!validateInput()) return;
 
         const headerList = {
             "Content-Type": "application/json",
@@ -96,10 +55,10 @@ const User = () => {
         };
 
         const bodyContent = {
-            username: username,
-            firstname: firstname,
-            lastname: lastname,
-            email: email
+            // username: username,
+            // firstname: firstname,
+            // lastname: lastname,
+            // email: email
         };
 
         try {
@@ -124,10 +83,6 @@ const User = () => {
 
     }
 
-    function validateInput() {
-        return 1;
-        // return isValid
-    }
 
     function toogleEdit() {
         setShowEdit(!showEdit);
@@ -135,7 +90,6 @@ const User = () => {
 
 
     async function getUserData() {
-
         try {
             const response = await fetch(`http://192.168.3.91:3166/mysql_recipe/${user_id}`);
             const data = await response.json();

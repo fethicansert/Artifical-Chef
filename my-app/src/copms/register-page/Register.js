@@ -34,15 +34,11 @@ const Register = () => {
 
     const navigate = useNavigate();
 
-
-
     useEffect(() => {
-
         validInputDispatch({ type: 'isValidUsername', payload: inputState.username.length >= 5 });
         validInputDispatch({ type: 'isValidEmail', payload: emailRegex.test(inputState.email) });
         validInputDispatch({ type: 'isValidPassword', payload: inputState.password.length >= 8 });
         validInputDispatch({ type: 'isValidConfirmPassword', payload: inputState.password === inputState.confirmPassword });
-
     }, [inputState]);
 
 
