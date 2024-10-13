@@ -6,10 +6,15 @@ import UserInput from './UserInput';
 import { userUpdateInputReducer } from '../../reducers/registerReducers';
 
 import '../../css/user.css'
+import UserRecipes from './UserRecipes';
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const User = () => {
 
     //STATES AND HOOKS  
+    const [userRecipes, setUserRecipes] = useState();
+
+    console.log(userRecipes);
+
     const { user_id } = useParams();
 
     const { auth, setAuth } = useAuth();
@@ -48,11 +53,20 @@ const User = () => {
 
             {(isEditing && errorMessage) && <span className='user-error-text'>{errorMessage}</span>}
 
+            <UserRecipes recipes={userRecipes} deleteRecipe={deleteRecipe} />
+
         </main>
     );
 
 
     //FUNCTIONS
+
+    async function deleteRecipe(id) {
+        console.log("Hello");
+        const newRecipes = userRecipes.filter(recipe => recipe.id !== id);
+        setUserRecipes(newRecipes);
+    }
+
     async function updateUser() {
         if (!validateInput()) return console.log("errror");
 
@@ -119,8 +133,11 @@ const User = () => {
     async function getUserData() {
         try {
             const response = await fetch(`http://192.168.3.91:3166/mysql_recipe/${user_id}`);
-            const data = await response.json();
-            console.log(data);
+            if (response.status === 200) {
+                const data = await response.json();
+                setUserRecipes(data.userRecipes);
+            }
+
         } catch (e) {
             console.log(e);
         }

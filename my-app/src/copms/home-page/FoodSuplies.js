@@ -1,7 +1,8 @@
 import React from 'react'
-import { FallingLines } from 'react-loader-spinner';
 import { Oval } from 'react-loader-spinner';
 import SearchFoodSuplies from './SearchFoodSuplies';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const FoodSuplies = ({ foodSuplies, chooseFoodSuplie, filterTypeFoodSuplies, searchText, setSearchText, foodSuplieTypes, isIngredientsLoadings }) => {
 
@@ -25,7 +26,7 @@ const FoodSuplies = ({ foodSuplies, chooseFoodSuplie, filterTypeFoodSuplies, sea
                                     <li
                                         onClick={() => { filterTypeFoodSuplies(item) }}
                                         className='food-supluies-type-list-item'
-                                        key={index}>
+                                        key={uuidv4()}>
                                         {item}
                                     </li>)
                                 : <Oval color='#D4212F' secondaryColor='#D4212F' wrapperClass='food-suplies-loading-spinner' />
@@ -41,7 +42,7 @@ const FoodSuplies = ({ foodSuplies, chooseFoodSuplie, filterTypeFoodSuplies, sea
                                     <li
                                         onClick={() => { chooseFoodSuplie(item) }}
                                         className='food-supluies-list-item'
-                                        key={index}>
+                                        key={uuidv4()}>
                                         {item.name}
                                     </li>)
                                 : <Oval color='#f75a0b' secondaryColor='#f75a0b' wrapperClass='food-suplies-loading-spinner' />

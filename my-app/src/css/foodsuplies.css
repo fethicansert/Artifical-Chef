@@ -240,3 +240,35 @@ h3 {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.recipe-ingredient-image {
+    border-radius: 50%;
+    position: relative;
+    transform: translateX(-250%);
+    animation: jump 1s ease forwards 200ms;
+}
+
+@keyframes flipx {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+@keyframes jump {
+    0% {
+        transform: translateX(-200%);
+    }
+
+    50% {
+        transform: translateX(15%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}

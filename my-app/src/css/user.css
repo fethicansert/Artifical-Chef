@@ -99,3 +99,53 @@
     /* text-align: center; */
     color: #D4212F;
 }
+
+.user-recipes {
+    list-style: none;
+}
+
+.user-recipe {
+    position: relative;
+    background: #339c6fe7;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+    padding: .45rem .4rem;
+    margin-bottom: .5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35);
+    font-size: .95rem;
+
+}
+
+.user-recipe-cook-time,
+.user-recipe-serve {
+    display: flex;
+    align-items: center;
+    gap: 0 2px;
+}
+
+.user-recipe-serve {
+    margin-left: 1rem;
+}
+
+.user-recipe-name {
+    display: block;
+    font-size: 1rem;
+}
+
+.user-recipe-row {
+    display: flex;
+}
+
+.user-recipes-title {
+    margin-bottom: .4rem;
+    color: #339C6E;
+}
+
+.user-recipe-delete-btn {
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    transform: translateY(-50%);
+}
