@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import useAuth from '../../hooks/useAuth';
 
-const UserInput = ({ updateInput, updateDispatch, usernameRef }) => {
+const UserInput = ({ updateInput, updateDispatch, usernameRef, emailRef }) => {
 
     const { auth } = useAuth();
 
@@ -19,7 +19,7 @@ const UserInput = ({ updateInput, updateDispatch, usernameRef }) => {
                 />
                 <div className='user-fullname'>
                     <input
-                        value={updateInput.fistname}
+                        value={updateInput.firstname}
                         onChange={(e) => updateDispatch({ type: 'firstname', payload: e.target.value })}
                         placeholder='Firstname'
                         className='user-input firstname'
@@ -36,6 +36,7 @@ const UserInput = ({ updateInput, updateDispatch, usernameRef }) => {
             </div>
 
             <input
+                ref={emailRef}
                 value={updateInput.email}
                 onChange={(e) => updateDispatch({ type: 'email', payload: e.target.value })}
                 placeholder='Email'

@@ -14,9 +14,13 @@ const User = () => {
 
     const { auth, setAuth } = useAuth();
 
-    const [showEdit, setShowEdit] = useState(false);
+    const [isEditing, setisEditing] = useState(false);
+
+    const [errorMessage, setErrorMessage] = useState('');
 
     const usernameRef = useRef();
+
+    const emailRef = useRef();
 
     const [updateInput, updateDispatch] = useReducer(userUpdateInputReducer, {
         username: auth.username || '', email: auth.email || '',
@@ -25,29 +29,32 @@ const User = () => {
 
     useEffect(() => { getUserData() }, []);
 
-    useEffect(() => { if (showEdit === true) usernameRef.current.focus() }, [showEdit]);
-
-
+    useEffect(() => { if (isEditing === true) { resesUpdate() } }, [isEditing]);
 
     //UI
     return (
         <main className='user-container'>
+
             {
-                !showEdit
+                !isEditing
                     ? <UserInfo username={auth.username} firstname={auth.firstname} lastname={auth.lastname} email={auth.email} />
-                    : <UserInput updateDispatch={updateDispatch} updateInput={updateInput} usernameRef={usernameRef} />
+                    : <UserInput updateDispatch={updateDispatch} updateInput={updateInput} usernameRef={usernameRef} emailRef={emailRef} />
             }
+
             <div className='user-button-container'>
-                <button onClick={toogleEdit} className='user-update-btn'>{!showEdit ? 'Update' : 'Cancel'}</button>
-                {showEdit && <button onClick={updateUser} type='submit' className='user-confirm-btn'>Confirm</button>}
+                <button onClick={toogleEdit} className='user-update-btn'>{!isEditing ? 'Update' : 'Cancel'}</button>
+                {isEditing && <button onClick={updateUser} type='submit' className='user-confirm-btn'>Confirm</button>}
             </div>
+
+            {(isEditing && errorMessage) && <span className='user-error-text'>{errorMessage}</span>}
+
         </main>
     );
 
 
     //FUNCTIONS
     async function updateUser() {
-        // if (!validateInput()) return;
+        if (!validateInput()) return console.log("errror");
 
         const headerList = {
             "Content-Type": "application/json",
@@ -55,10 +62,10 @@ const User = () => {
         };
 
         const bodyContent = {
-            // username: username,
-            // firstname: firstname,
-            // lastname: lastname,
-            // email: email
+            username: updateInput.username,
+            firstname: updateInput.firstname,
+            lastname: updateInput.lastname,
+            email: updateInput.email
         };
 
         try {
@@ -75,7 +82,9 @@ const User = () => {
             if (response.status === 200) {
                 setAuth({ ...auth, ...data.updatedUser });
                 toogleEdit();
-            };
+            } else if (response.status === 400) {
+                setErrorMessage(data.error);
+            }
 
         } catch (e) {
             console.log(e);
@@ -83,11 +92,29 @@ const User = () => {
 
     }
 
-
-    function toogleEdit() {
-        setShowEdit(!showEdit);
+    function validateInput() {
+        let isValid = true;
+        if (!updateInput.username) {
+            isValid = false;
+            setErrorMessage("Username required !");
+            usernameRef.current.focus();
+        }
+        else if (!updateInput.email) {
+            isValid = false;
+            setErrorMessage("Email required !");
+            emailRef.current.focus();
+        }
+        else if (!emailRegex.test(updateInput.email)) {
+            isValid = false;
+            setErrorMessage("Email not valid !");
+        }
+        return isValid;
     }
 
+    function toogleEdit() {
+        setisEditing(!isEditing);
+        setErrorMessage("");
+    }
 
     async function getUserData() {
         try {
@@ -98,6 +125,14 @@ const User = () => {
             console.log(e);
         }
     };
+
+    function resesUpdate() {
+        usernameRef.current.focus();
+        updateDispatch({
+            type: 'reset', payload:
+                { username: auth.username, firstname: auth.firstname, lastname: auth.lastname, email: auth.email }
+        });
+    }
 
 
 }

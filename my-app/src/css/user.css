@@ -94,3 +94,8 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.user-error-text {
+    /* text-align: center; */
+    color: #D4212F;
+}

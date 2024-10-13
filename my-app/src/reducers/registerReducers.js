@@ -60,6 +60,8 @@ export const userUpdateInputReducer = (state, action) => {
 
         case 'lastname': return { ...state, lastname: action.payload };
 
+        case 'reset': return { ...action.payload };
+
         default: return state;
     };
 }
